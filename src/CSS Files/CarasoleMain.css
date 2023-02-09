@@ -1,0 +1,17 @@
+/* .backgroundC{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5;
+} */
+.carasoleImg{
+    width: 100%;
+}
+.carousel{
+    /* padding: 0px 220px 0 220px; */
+    background-color: #FECE1A;
+    margin-bottom: 50px;
+}
