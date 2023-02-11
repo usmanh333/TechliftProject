@@ -1,0 +1,139 @@
+.reviewSection{
+    width: 100%;
+    background-image: -webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733));
+    padding: 63px;
+    position: relative;
+}
+.headingFour{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0px 20px 60px 20px;
+    position: relative;
+    bottom: 50px;
+}
+.container{
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+.card{
+    border-radius: 1rem;
+    box-shadow: 0px -10px 0px rgb(151, 248, 6);
+}
+@media(max-width:767px){
+    .reviewSection {
+        padding: 0px;
+    }
+    .card{
+        margin: 1rem 0.7rem 1rem;
+        width: 100%
+    }
+}
+img{
+    width: 6.2rem;
+    border-radius: 5rem;
+    margin: 1.3rem auto 1rem auto;
+}
+.col-md-4{
+    padding:0  0.5rem;
+}
+.card-title{
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-family: 'IM Fell French Canon SC';
+}
+.card-text{
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    color: rgb(82, 81, 81);
+    line-height: 1.4rem;
+}
+.footer{
+    border-top: none;
+    text-align: center;
+    line-height: 1.2rem;
+    padding: 2rem 0 1.4rem 0;
+    font-family: 'Varela Round';
+}
+#name{
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+#position{
+    font-size: 0.7rem;
+}
+a{
+    color: rgb(151, 248, 6);
+    font-weight: bold;
+}
+a:hover{
+    color: rgb(151, 248, 6);
+}
+/* Another Section  */
+
+.card {
+    cursor: pointer;
+    /* box-shadow: 0px -10px 0px rgb(151 248 6); */
+    box-shadow: none;
+}
+
+.hd {
+    font-size: 25px;
+    font-weight: 550
+}
+
+.card.hover,
+.card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .2)
+}
+
+.img {
+    margin-bottom: 35px;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222)
+}
+
+.card-title {
+    font-weight: 600
+}
+
+button.focus,
+button:focus {
+    outline: 0;
+    box-shadow: none !important
+}
+
+.ft {
+    margin-top: 25px
+}
+
+.chk {
+    margin-bottom: 5px
+}
+
+.rck {
+    margin-top: 20px;
+    padding-bottom: 15px
+}
+/*  */
+.custom-shape-divider-top-1676118646 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1676118646 svg {
+    position: relative;
+    display: block;
+    width: calc(285% + 1.3px);
+    height: 249px;
+}
+
+.custom-shape-divider-top-1676118646 .shape-fill {
+    fill: #FECE1A;
+}

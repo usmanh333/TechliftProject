@@ -1,17 +1,35 @@
-/* .backgroundC{
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.5;
-} */
 .carasoleImg{
-    width: 100%;
+    width: 80% !important;
+    height: auto;
 }
 .carousel{
-    /* padding: 0px 220px 0 220px; */
     background-color: #FECE1A;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
+}
+.carousel-item{
+    top: -21px;
+}
+.roundImage{
+    border-radius: 0;
+}
+.headingTitle{
+    font-size: 40px;
+    font-weight: 700;
+    color: aliceblue;
+    background-color: #FECE1A;
+    padding: 60px 120px 60px 120px;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+.carousel-dark .carousel-control-next-icon, .carousel-dark .carousel-control-prev-icon {
+    height: 60px;
+    width: 50%;
+    filter: invert(0) grayscale(100);
+}
+.navbar-toggler {
+    background-color: #fece1a;
+    font-size: 25px;
+}
+.carousel-indicators {
+    bottom: 60px;
 }

@@ -9,4 +9,9 @@
     border: 1px solid #ffffff !important;
     margin-right: 15px;
     border-radius: 10px;
+    margin-top: 5px;
+    text-align: center;
+}
+.bg-dark {
+    background-color: #000000!important;
 }
