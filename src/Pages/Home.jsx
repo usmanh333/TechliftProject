@@ -9,7 +9,6 @@ import Footer from "../Components/Footer";
 function Home() {
   return (
     <>
-    
     <Slider />
     <HomeSection />
     <ProductUI />

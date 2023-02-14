@@ -1,6 +1,6 @@
 import React from 'react'
 import "../CSS Files/Footer.css"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Footer() {
     return (
@@ -11,7 +11,7 @@ function Footer() {
                         <div class="col-md-12 col-lg-4">
                             <div class="dk-footer-box-info">
                                 <a href="index.html" class="footer-logo">
-                                    <img src={require('../images/logo000.png')} alt="footer_logo" class="img-fluid logo-footer" />
+                                    <img src={'../images/logo000.png'} alt="footer_logo" class="img-fluid logo-footer" />
                                 </a>
                                 <p class="footer-info-text">
                                 "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away"

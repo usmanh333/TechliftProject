@@ -8,7 +8,7 @@ function NavBar() {
     <nav className="navbar navbar-expand-lg bg-dark text-light ps-5 pe-5 ">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
-          <img src={require('../images/logo000.png')} alt="Logo" style={{width:"150px",height:"50px"}} />
+          <img src={'../images/logo000.png'} alt="Logo" style={{width:"150px",height:"50px"}} />
         </Link>
         <button
           className="navbar-toggler"
@@ -45,7 +45,7 @@ function NavBar() {
               <ul className="dropdown-menu bg-dark">
                 <li>
                   <Link to="/services" className="dropdown-item text-light bg-dark">
-                        Services
+                        Services By Categories
                   </Link>
                 </li> 
                 <li>

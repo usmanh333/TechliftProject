@@ -10,19 +10,19 @@ function Slider() {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active" data-bs-interval="10000">
-            <img src={require('../images/Slider101.jpg')} className="d-block w-100 roundImage" alt="Slider1" />
+            <img src={'../images/Slider101.jpg'} className="d-block w-100 roundImage" alt="Slider1" />
             <div className="carousel-caption d-none d-md-block">
               <div className="headingOne"></div>
             </div>
           </div>
           <div className="carousel-item" data-bs-interval="2000">
-            <img src={require('../images/Portfolio13.jpg')} className="d-block w-100 roundImage" alt="Slider2" />
+            <img src={'../../images/Portfolio13.jpg'} className="d-block w-100 roundImage" alt="Slider2" />
             <div className="carousel-caption d-none d-md-block">
               <h5 className="headingTitle">We are Providing Security Services</h5>
             </div>
           </div>
           <div className="carousel-item">
-            <img src={require('../images/Portfolio21.jpg')} className="d-block w-100 roundImage" alt="Slider3" />
+            <img src={'../../images/Portfolio21.jpg'} className="d-block w-100 roundImage" alt="Slider3" />
             <div className="carousel-caption d-none d-md-block">
               <h5 className="headingTitle">We are Providing Plumber Services</h5>
             </div>

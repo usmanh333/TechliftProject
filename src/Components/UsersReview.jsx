@@ -23,9 +23,9 @@ function UsersReview() {
       <div className="headingFour">What Users Say?</div>
       <hr />
       <div className="commentBoxSection">
-        <div class="container">
+        <div class="container new">
           <div class="row">
-            <div class="col-lg-3 ">
+            <div class="col-lg-3 mt-3">
               <div class="card d-flex mx-auto">
                 <div class="card-image">
                   <img alt="image1"

@@ -54,3 +54,9 @@ hr {
 p{
     color: black !important;
 }
+.pb-5 {
+    padding-bottom: 10rem!important;
+}
+.row{
+    margin: 0 !important;
+}

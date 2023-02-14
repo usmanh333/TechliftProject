@@ -129,6 +129,8 @@ p {
   background: #202020;
   padding: 40px;
   z-index: 2;
+  width: 500px;
+  left: 27px;
 }
 .dk-footer-box-info .footer-social-link h3 {
   color: #fff;
@@ -240,6 +242,7 @@ p {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
+  text-decoration: none;
 }
 .footer-widget a:hover {
   color: #007bff;
@@ -335,10 +338,11 @@ p {
 }
 
 .copyright {
-  padding: 28px 0;
-  margin-top: 55px;
+  margin-top: 0px;
   background-color: #202020;
   text-align: center;
+  padding-bottom: 1px;
+  padding-top: 20px;
 }
 .copyright span,
 .copyright a {

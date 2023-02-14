@@ -15,11 +15,11 @@ function loginPage() {
                     <div class="card-body p-md-5 mx-md-4">
                       <div class="text-center">
                         <img
-                          src= {require("../images/loginImg.png")}
+                          src= {"../images/loginImg.png"}
                           style= {{width: "185px", backgroundColor: "aliceblue"}}
                           alt="logo"
                         />
-                        <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                        <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
                       </div>
 
                       <form>
@@ -55,7 +55,7 @@ function loginPage() {
                             type="button"
                           >
                             Log in
-                          </button>
+                          </button><br />
                           <a class="text-muted" href="#!">
                             Forgot password?
                           </a>

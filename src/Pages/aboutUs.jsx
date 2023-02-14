@@ -7,7 +7,7 @@ function aboutUs() {
     <div className="aboutMain">
       <div>
         <img
-          src={require("../images/marvin-meyer-SYTO3xs06fU-unsplash (2).jpg")}
+          src={"../images/marvin-meyer-SYTO3xs06fU-unsplash (2).jpg"}
           className="aboutImage"
           alt="imageAbout"
         />

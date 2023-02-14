@@ -15,8 +15,8 @@ function ProductUI() {
   return (
     <MDBContainer fluid className="text-center" style={{backgroundImage: "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))"}}>
       <MDBRow>
-        <MDBCol md="12" lg="4" className="mb-4">
-          <MDBCard>
+        <MDBCol md="12" lg="3" className="mb-4">
+          <MDBCard style={{height:"470px"}}>
             <MDBRipple
               rippleColor="light"
               rippleTag="div"
@@ -54,8 +54,8 @@ function ProductUI() {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol md="6" lg="4" className="mb-4">
-          <MDBCard>
+        <MDBCol md="6" lg="3" className="mb-4">
+          <MDBCard style={{height:"470px"}}>
             <MDBRipple
               rippleColor="light"
               rippleTag="div"
@@ -93,8 +93,8 @@ function ProductUI() {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol md="6" lg="4" className="mb-4">
-          <MDBCard>
+        <MDBCol md="6" lg="3" className="mb-4">
+          <MDBCard style={{height:"470px"}}>
             <MDBRipple
               rippleColor="light"
               rippleTag="div"
@@ -135,8 +135,8 @@ function ProductUI() {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol md="12" lg="4" className="mb-4">
-          <MDBCard>
+        <MDBCol md="12" lg="3" className="mb-4">
+          <MDBCard style={{height:"470px"}}>
             <MDBRipple
               rippleColor="light"
               rippleTag="div"
@@ -178,8 +178,8 @@ function ProductUI() {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol md="6" lg="4" className="mb-4">
-          <MDBCard>
+        <MDBCol md="6" lg="3" className="mb-4">
+          <MDBCard style={{height:"470px"}}>
             <MDBRipple
               rippleColor="light"
               rippleTag="div"
@@ -213,8 +213,8 @@ function ProductUI() {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol md="6" lg="4" className="mb-4">
-          <MDBCard>
+        <MDBCol md="6" lg="3" className="mb-4">
+          <MDBCard style={{height:"470px"}}>
             <MDBRipple
               rippleColor="light"
               rippleTag="div"
