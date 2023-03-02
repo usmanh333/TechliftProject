@@ -53,9 +53,7 @@ app.get('/cardsdata', async(req, res) =>{
 
 // posting cards 
 app.post('/cards', upload.single('upload'), async (req, res) => {
-  const { name, desc, price, number, selectDistrict, selectArea ,checkbox } = req.body;
-  console.log(req.body);
-  console.log(price)
+  const { name, desc, price, number, selectDistrict, selectArea ,checkbox,selectCategory } = req.body;
   // checking file
   if (!req.file) {
     res.status(400).json({ msg: "BAD REQUEST" });
@@ -69,6 +67,7 @@ app.post('/cards', upload.single('upload'), async (req, res) => {
     number: number,
     selectDistrict: selectDistrict,
     selectArea: selectArea,
+    selectCategory :selectCategory,
     checkbox : checkbox,
     date: new Date().toISOString()
   });
@@ -98,14 +97,16 @@ app.put('/cardsdata/:id', upload.single('image'), async (req, res) => {
     const card = await post_a_service.findById(req.params.id);
 
     // Update the card data
-    card.title = req.body.name;
+    card.name = req.body.name;
     card.desc = req.body.desc;
     card.image = req.file.filename; // Use the filename of the uploaded file
     card.price = req.body.price;
     card.number = req.body.number;
     card.selectDistrict = req.body.selectDistrict;
     card.selectArea = req.body.selectArea;
+    card.selectCategory = req.body.selectCategory;
     card.checkbox = req.body.checkbox;
+    card.date= new Date().toISOString()
 
     // Save the updated card
     await card.save();
@@ -121,10 +122,22 @@ app.put('/cardsdata/:id', upload.single('image'), async (req, res) => {
 
 
 // Delete card post by ID
-app.delete('/cardsdata/:id', async(req, res) => {
-    const removeCard = await Cards.deleteOne({_id : req.params.id}) // remove is deprecated now we are using deleteone
-    res.send(removeCard)
+app.delete('/cardsdata/:id', async (req, res) => {
+  try {
+    const removeCard = await post_a_service.deleteOne({ _id: req.params.id });
+    res.json(removeCard);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// getting cards post by a ID
+app.get('/cardsdata/:id', async (req, res)=>{
+  const postById = await post_a_service.findById(req.params.id)
+  res.json(postById)
 })
+
 
 
 try {

@@ -33,6 +33,10 @@ const userShema = new mongoose.Schema({
         type : Boolean,
         default : false,
     },
+    selectCategory: {
+        type : String,
+        default : true,
+    },
     image: {
         type : String,
     },

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
+import CategoriesUiData from "../Components/CategoriesUiData";
 
 const PostAServiceForm = () => {
   let navigate = useNavigate();
@@ -13,6 +14,7 @@ const PostAServiceForm = () => {
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
+  const [selectCategory, setSelectCategory] = useState("");
   const [options, setOptions] = useState([
     {
       category: "districts",
@@ -33,6 +35,33 @@ const PostAServiceForm = () => {
         Kasur: ["City Kasur", "Chunian", "Pattoki", "Raiwind"],
       },
     },
+    {
+      category: "productsCategory",
+      options: [
+          'Electrician',
+          'Pizza Shops',
+          'Cab/Car Services',
+          'Coffe Shops',
+          'Hajj n Ummra',
+          'Supermarts',
+          'Rent A Car',
+          'SEO',
+          'Restaurants',
+          'AC Repair',
+          'Clinics Doctors',
+          'Courier',
+          'Security',
+          'Graphic Designers',
+          'Buses',
+          'Wifi Provider',
+          'Fruit Shops',
+          'Electrician',
+          'Labours',
+          'Pakistan Post',
+          'Plumber',
+          'Web Developers',
+          'Other'
+  ]},
   ]);
   // Checkbox state 
   const [checked, setChecked] = useState(false);
@@ -60,6 +89,9 @@ const PostAServiceForm = () => {
 
   const handleAreaChange = (event) => {
     setSelectedArea(event.target.value);
+  };
+  const handleCategoryChange = (event) => {
+    setSelectCategory(event.target.value);
   };
 
   const handleCheckboxChange = (event) => {
@@ -91,6 +123,15 @@ const PostAServiceForm = () => {
     ));
   };
 
+  const handleCategories = () => {
+    return options.find((option) => option.category === "productsCategory")
+    .options.map((category) => (
+      <option key={category} value={category}> 
+        {category}
+      </option>
+    ))
+  }
+
   // Select Ends here
 
   //input handler
@@ -111,6 +152,7 @@ const PostAServiceForm = () => {
       formData.append("number", inputHandler.number);
       formData.append("selectDistrict", selectedDistrict);
       formData.append("selectArea", selectedArea);
+      formData.append("selectCategory", selectCategory);
   
       const response = await Axios.post("http://localhost:4000/cards", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -144,7 +186,7 @@ const PostAServiceForm = () => {
             class="form-control"
             value={inputHandler.name}
             onChange={handleInputChange}
-          />
+          /> 
         </div>
 
         {/* <!-- Message input --> */}
@@ -226,12 +268,21 @@ const PostAServiceForm = () => {
               </select>
             </div>
           )}
-
-          {/* {selectedArea && (
-            <div>
-              <p>Selected Area: {selectedArea}</p>
-            </div>
-          )} */}
+          {/* Category Section */}
+          <label className="form-label" htmlFor="category-select">
+            Select Category:
+          </label>
+          <select
+            class="form-control mb-4"
+            aria-label=".form-select-sm example"
+            name="selectDistrict"
+            id="district-select"
+            value={selectCategory}
+            onChange={handleCategoryChange}
+          >
+            <option value="option1">Select a Category</option>
+            {handleCategories()}
+          </select>
         </div>
 
         {/* Select Starts from here  */}
@@ -261,7 +312,7 @@ const PostAServiceForm = () => {
               aria-label="Checkbox for following text input"
             />
           </div>
-          <label class="form-label" for="form4Example2">
+          <label class="form-label ps-2 pt-2" for="form4Example2">
             Please Check the Box if You have fill the Complete Informations
             Properly.!!!
           </label>
