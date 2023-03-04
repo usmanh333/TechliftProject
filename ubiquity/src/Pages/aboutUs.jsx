@@ -32,15 +32,14 @@ function aboutUs() {
           complete different tasks). With Ubiquity not only skilled labor can
           register & find tasks, infact unskilled professionals can register and
           bid for various tasks where skills are not required like pickup &
-          delivery, data entry and others. Ubiquity is a solution that lets
-          you live an economically stable life by selling your skills to the
-          right people with no capital requirements. For taskers, we let you
-          save your precious time and find a right person for your job by
-          looking at his previous job ratings and save your appliances from the
-          brutality of an unskilled worker.
+          delivery, data entry and others. Ubiquity is a solution that lets you
+          live an economically stable life by selling your skills to the right
+          people with no capital requirements. For taskers, we let you save your
+          precious time and find a right person for your job by looking at his
+          previous job ratings and save your appliances from the brutality of an
+          unskilled worker.
         </span>
       </div>
-      <Footer />
     </div>
   );
 }

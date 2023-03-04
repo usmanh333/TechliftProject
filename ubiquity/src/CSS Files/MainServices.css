@@ -13,3 +13,6 @@
 a{
     text-decoration: none!important;
 }
+.fixingBottom{
+    margin-bottom: 150px !important;
+}

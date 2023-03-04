@@ -1,11 +1,14 @@
 import React from "react";
-import "../CSS Files/loginPage.css"
+import "../CSS Files/loginPage.css";
 import Footer from "../Components/Footer";
 
 function loginPage() {
   return (
     <div>
-      <section class="h-100 gradient-form bottomS" style={{backgroundColor: "#eee"}}>
+      <section
+        class="h-100 gradient-form bottomS"
+        style={{ backgroundColor: "#eee" }}
+      >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -15,8 +18,11 @@ function loginPage() {
                     <div class="card-body p-md-5 mx-md-4">
                       <div class="text-center">
                         <img
-                          src= {"../images/loginImg.png"}
-                          style= {{width: "185px", backgroundColor: "aliceblue"}}
+                          src={"../images/loginImg.png"}
+                          style={{
+                            width: "185px",
+                            backgroundColor: "aliceblue",
+                          }}
                           alt="logo"
                         />
                         <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
@@ -55,7 +61,8 @@ function loginPage() {
                             type="button"
                           >
                             Log in
-                          </button><br />
+                          </button>
+                          <br />
                           <a class="text-muted" href="#!">
                             Forgot password?
                           </a>
@@ -74,7 +81,8 @@ function loginPage() {
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                       <h4 class="mb-4">We are more than just a company</h4>
                       <p class="small mb-0">
-                      Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away
+                        Perfection is Achieved Not When There Is Nothing More to
+                        Add, But When There Is Nothing Left to Take Away
                       </p>
                     </div>
                   </div>
@@ -84,10 +92,7 @@ function loginPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
-
-    
   );
 }
 

@@ -38,7 +38,6 @@ function HomeSection() {
           <hr />
         </div>
       </div>
-      
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from 'axios'
+import Axios from "axios";
 import CategoriesUiData from "../Components/CategoriesUiData";
 
 const PostAServiceForm = () => {
@@ -8,8 +8,8 @@ const PostAServiceForm = () => {
 
   // Image state
 
-  const [getImage,setGetImage] = useState(null);
-  
+  const [getImage, setGetImage] = useState(null);
+
   // Select States
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -38,32 +38,33 @@ const PostAServiceForm = () => {
     {
       category: "productsCategory",
       options: [
-          'Electrician',
-          'Pizza Shops',
-          'Cab/Car Services',
-          'Coffe Shops',
-          'Hajj n Ummra',
-          'Supermarts',
-          'Rent A Car',
-          'SEO',
-          'Restaurants',
-          'AC Repair',
-          'Clinics Doctors',
-          'Courier',
-          'Security',
-          'Graphic Designers',
-          'Buses',
-          'Wifi Provider',
-          'Fruit Shops',
-          'Electrician',
-          'Labours',
-          'Pakistan Post',
-          'Plumber',
-          'Web Developers',
-          'Other'
-  ]},
+        "Electrician",
+        "Pizza Shops",
+        "Cab/Car Services",
+        "Coffe Shops",
+        "Hajj n Ummra",
+        "Supermarts",
+        "Rent A Car",
+        "SEO",
+        "Restaurants",
+        "AC Repair",
+        "Clinics Doctors",
+        "Courier",
+        "Security",
+        "Graphic Designers",
+        "Buses",
+        "Wifi Provider",
+        "Fruit Shops",
+        "Electrician",
+        "Labours",
+        "Pakistan Post",
+        "Plumber",
+        "Web Developers",
+        "Other",
+      ],
+    },
   ]);
-  // Checkbox state 
+  // Checkbox state
   const [checked, setChecked] = useState(false);
 
   // Input Handler State
@@ -77,8 +78,7 @@ const PostAServiceForm = () => {
   // image handler
   const handleImage = async (e) => {
     setGetImage(e.target.files[0]);
-  }
-
+  };
 
   // Select start from here
 
@@ -97,7 +97,6 @@ const PostAServiceForm = () => {
   const handleCheckboxChange = (event) => {
     setChecked(event.target.checked);
   };
-
 
   const getDistrictOptions = () => {
     return options
@@ -124,13 +123,14 @@ const PostAServiceForm = () => {
   };
 
   const handleCategories = () => {
-    return options.find((option) => option.category === "productsCategory")
-    .options.map((category) => (
-      <option key={category} value={category}> 
-        {category}
-      </option>
-    ))
-  }
+    return options
+      .find((option) => option.category === "productsCategory")
+      .options.map((category) => (
+        <option key={category} value={category}>
+          {category}
+        </option>
+      ));
+  };
 
   // Select Ends here
 
@@ -153,26 +153,29 @@ const PostAServiceForm = () => {
       formData.append("selectDistrict", selectedDistrict);
       formData.append("selectArea", selectedArea);
       formData.append("selectCategory", selectCategory);
-  
-      const response = await Axios.post("http://localhost:4000/cards", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-  
+
+      const response = await Axios.post(
+        "http://localhost:4000/cards",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
       console.log(response.data.name);
       navigate("/servicesAll/");
     } catch (error) {
       console.error(error);
     }
   };
-  
-
 
   return (
-    <div className="container w-50 mt-5">
+    <div className="container w-50 mt-5 fixingBottom">
       <form
         onSubmit={SubmitHandler}
         encType="multipart/form-data"
         method="POST"
+        className="fixingBottom"
       >
         {/* <!-- Name input --> */}
         <div class="form-outline mb-4">
@@ -186,7 +189,7 @@ const PostAServiceForm = () => {
             class="form-control"
             value={inputHandler.name}
             onChange={handleInputChange}
-          /> 
+          />
         </div>
 
         {/* <!-- Message input --> */}

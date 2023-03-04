@@ -1,10 +1,8 @@
-import React from 'react'
+import React from "react";
 
 const ProtectedRoute = () => {
-    let auth = localStorage
-  return (
-    <div>ProtectedRoute</div>
-  )
-}
+  let auth = localStorage;
+  return <div>ProtectedRoute</div>;
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

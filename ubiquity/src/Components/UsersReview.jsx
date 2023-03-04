@@ -4,8 +4,8 @@ import "../CSS Files/UserReview.css";
 function UsersReview() {
   return (
     <div className="reviewSection pb-5">
-        <hr />
-         {/*  */}
+      <hr />
+      {/*  */}
       <div class="custom-shape-divider-top-1676118646">
         <svg
           data-name="Layer 1"
@@ -28,7 +28,8 @@ function UsersReview() {
             <div class="col-lg-3 mt-3">
               <div class="card d-flex mx-auto">
                 <div class="card-image">
-                  <img alt="image1"
+                  <img
+                    alt="image1"
                     class="img-fluid d-flex mx-auto"
                     src="https://i.imgur.com/3TlwnLF.jpg"
                   />
@@ -55,7 +56,8 @@ function UsersReview() {
             <div class=" col-lg-3 mt-3">
               <div class="card d-flex mx-auto">
                 <div class="card-image">
-                  <img alt="image2"
+                  <img
+                    alt="image2"
                     class="img-fluid d-flex mx-auto"
                     src="https://i.imgur.com/Uz4FjGZ.jpg"
                   />
@@ -82,7 +84,8 @@ function UsersReview() {
             <div class=" col-lg-3 mt-3">
               <div class="card d-flex mx-auto ">
                 <div class="card-image">
-                  <img alt="image3"
+                  <img
+                    alt="image3"
                     class="img-fluid d-flex mx-auto"
                     src="https://i.imgur.com/udGH5tO.jpg"
                   />
@@ -109,7 +112,8 @@ function UsersReview() {
             <div class=" col-lg-3 mt-3">
               <div class="card d-flex mx-auto ">
                 <div class="card-image">
-                  <img alt="image4"
+                  <img
+                    alt="image4"
                     class="img-fluid d-flex mx-auto"
                     src="https://i.imgur.com/udGH5tO.jpg"
                   />
@@ -138,10 +142,10 @@ function UsersReview() {
       </div>
 
       {/* Another Section */}
-      
+
       <div
         class="container-fluid mx-auto mt-5 mb-5 col-12"
-        style={{textAlign: "center"}}
+        style={{ textAlign: "center" }}
       >
         <hr />
         <div class="hd">Why People Believe in Us</div>
@@ -151,33 +155,41 @@ function UsersReview() {
             is expected of you, no matter what your ask may be.
           </small>
         </p>
-        <div class="row mt-5" style={{justifyContent: "center"}}>
-            <div class="card  col-lg-3 mt-3 col-12 me-4">
-                <div class="card-content">
-                <div class="card-body">
+        <div class="row mt-5" style={{ justifyContent: "center" }}>
+          <div class="card  col-lg-3 mt-3 col-12 me-4">
+            <div class="card-content">
+              <div class="card-body">
+                {" "}
+                <img
+                  alt="image5"
+                  class="img"
+                  src="https://i.imgur.com/S7FJza5.png"
+                />
+                <div class="shadow"></div>
+                <div class="card-title"> We're Free </div>
+                <div class="card-subtitle">
+                  <p>
                     {" "}
-                    <img alt="image5" class="img" src="https://i.imgur.com/S7FJza5.png" />
-                    <div class="shadow"></div>
-                    <div class="card-title"> We're Free </div>
-                    <div class="card-subtitle">
-                    <p>
-                        {" "}
-                        <small class="text-muted">
-                        We spent thousands of hours creating on algorithm that
-                        does this for you in seconds. We collect a small fee from
-                        the professional after they meet your
-                        </small>{" "}
-                    </p>
-                    </div>
+                    <small class="text-muted">
+                      We spent thousands of hours creating on algorithm that
+                      does this for you in seconds. We collect a small fee from
+                      the professional after they meet your
+                    </small>{" "}
+                  </p>
                 </div>
-                </div>
+              </div>
             </div>
+          </div>
 
           <div class="card  col-lg-3 mt-3 col-12  me-4 ">
             <div class="card-content">
               <div class="card-body">
                 {" "}
-                <img alt="image6" class="img" src="https://i.imgur.com/xUWJuHB.png" />
+                <img
+                  alt="image6"
+                  class="img"
+                  src="https://i.imgur.com/xUWJuHB.png"
+                />
                 <div class="card-title"> We're Unbiased </div>
                 <div class="card-subtitle">
                   <p>
@@ -196,7 +208,11 @@ function UsersReview() {
             <div class="card-content">
               <div class="card-body">
                 {" "}
-                <img alt="image7" class="img rck" src="https://i.imgur.com/rG3CGn3.png" />
+                <img
+                  alt="image7"
+                  class="img rck"
+                  src="https://i.imgur.com/rG3CGn3.png"
+                />
                 <div class="card-title"> We Guide you </div>
                 <div class="card-subtitle">
                   <p>

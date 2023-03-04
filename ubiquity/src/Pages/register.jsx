@@ -1,11 +1,14 @@
-import React from 'react'
-import "../CSS Files/Register.css"
-import Footer from '../Components/Footer'
+import React from "react";
+import "../CSS Files/Register.css";
+import Footer from "../Components/Footer";
 
 function register() {
   return (
     <div>
-      <section class="h-100 gradient-form bottomS" style={{backgroundColor: "#eee"}}>
+      <section
+        class="h-100 gradient-form bottomS"
+        style={{ backgroundColor: "#eee" }}
+      >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -15,8 +18,11 @@ function register() {
                     <div class="card-body p-md-5 mx-md-4">
                       <div class="text-center">
                         <img
-                          src= {"../images/loginImg.png"}
-                          style= {{width: "185px", backgroundColor: "aliceblue"}}
+                          src={"../images/loginImg.png"}
+                          style={{
+                            width: "185px",
+                            backgroundColor: "aliceblue",
+                          }}
                           alt="logo"
                         />
                         <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
@@ -31,15 +37,17 @@ function register() {
                             id="form2Example11"
                             class="form-control"
                             placeholder="Enter Username"
-                          /></div>
-                          <div class="form-outline mb-4">
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
                           <input
                             type="email"
                             id="form2Example11"
                             class="form-control"
                             placeholder="Enter Email Address"
-                          /></div>
-                          <div class="form-outline mb-4">
+                          />
+                        </div>
+                        <div class="form-outline mb-4">
                           <input
                             type="number"
                             id="form2Example11"
@@ -58,8 +66,8 @@ function register() {
                             class="form-control"
                             placeholder="Password"
                           />
-                          </div>
-                          <div class="form-outline mb-4">
+                        </div>
+                        <div class="form-outline mb-4">
                           <input
                             type="password"
                             id="form2Example22"
@@ -96,7 +104,8 @@ function register() {
                     <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                       <h4 class="mb-4">We are more than just a company</h4>
                       <p class="small mb-0">
-                      Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away
+                        Perfection is Achieved Not When There Is Nothing More to
+                        Add, But When There Is Nothing Left to Take Away
                       </p>
                     </div>
                   </div>
@@ -106,10 +115,8 @@ function register() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
-    
-  )
+  );
 }
 
-export default register
+export default register;

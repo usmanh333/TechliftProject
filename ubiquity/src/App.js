@@ -11,6 +11,7 @@ import ServiceByCategory from './Components/ServiceByCategory';
 import PostAServiceForm from './Pages/PostAServiceForm';
 import UpdateServiceForm from './Pages/UpdateServiceForm';
 import ServicesDetails from './Pages/ServicesDetails';
+import Footer from './Components/Footer';
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
       </Routes>
-
+      <Footer/>
 
     </div>
   );

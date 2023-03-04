@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Axios from 'axios'
-
+import Axios from "axios";
 
 const UpdateServiceForm = () => {
   let navigate = useNavigate();
@@ -9,8 +8,8 @@ const UpdateServiceForm = () => {
 
   // Image state
 
-  const [getImage,setGetImage] = useState(null);
-  
+  const [getImage, setGetImage] = useState(null);
+
   // Select States
 
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -39,46 +38,46 @@ const UpdateServiceForm = () => {
     {
       category: "productsCategory",
       options: [
-          'Electrician',
-          'Pizza Shops',
-          'Cab/Car Services',
-          'Coffe Shops',
-          'Hajj n Ummra',
-          'Supermarts',
-          'Rent A Car',
-          'SEO',
-          'Restaurants',
-          'AC Repair',
-          'Clinics Doctors',
-          'Courier',
-          'Security',
-          'Graphic Designers',
-          'Buses',
-          'Wifi Provider',
-          'Fruit Shops',
-          'Electrician',
-          'Labours',
-          'Pakistan Post',
-          'Plumber',
-          'Web Developers',
-          'Other'
-  ]},
+        "Electrician",
+        "Pizza Shops",
+        "Cab/Car Services",
+        "Coffe Shops",
+        "Hajj n Ummra",
+        "Supermarts",
+        "Rent A Car",
+        "SEO",
+        "Restaurants",
+        "AC Repair",
+        "Clinics Doctors",
+        "Courier",
+        "Security",
+        "Graphic Designers",
+        "Buses",
+        "Wifi Provider",
+        "Fruit Shops",
+        "Electrician",
+        "Labours",
+        "Pakistan Post",
+        "Plumber",
+        "Web Developers",
+        "Other",
+      ],
+    },
   ]);
-  // Checkbox state 
+  // Checkbox state
   const [checked, setChecked] = useState(true);
 
   // Input Handler State
 
-const [name, setName] = useState('')
-const [desc, setDesc] = useState('')
-const [price, setPrice] = useState()
-const [number, setNumber] = useState()
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState();
+  const [number, setNumber] = useState();
 
   // image handler
   const handleImage = async (e) => {
     setGetImage(e.target.files[0]);
-  }
-
+  };
 
   // Select start from here
 
@@ -97,7 +96,6 @@ const [number, setNumber] = useState()
   const handleCheckboxChange = (event) => {
     setChecked(event.target.checked);
   };
-
 
   const getDistrictOptions = () => {
     return options
@@ -124,35 +122,36 @@ const [number, setNumber] = useState()
   };
 
   const handleCategories = () => {
-    return options.find((option) => option.category === "productsCategory")
-    .options.map((category) => (
-      <option key={category} value={category}> 
-        {category}
-      </option>
-    ))
-  }
+    return options
+      .find((option) => option.category === "productsCategory")
+      .options.map((category) => (
+        <option key={category} value={category}>
+          {category}
+        </option>
+      ));
+  };
 
   // Select Ends here
 
-//   Getting Data from BE 
-const getUserDetail = async () => {
-  try {
-    let res = await fetch(`http://localhost:4000/cardsdata/${id}`);
-    console.log(res);
-    let card = await res.json();
-    console.log(card);
-    setName(card.name)
-    setDesc(card.desc)
-    setPrice(card.price)
-    setNumber(card.number)
-    setSelectedDistrict(card.selectedDistrict)
-    setSelectedArea(card.selectedArea)
-    setSelectCategory(card.selectCategory)
-    setGetImage(card.getImage);
-  } catch (error) {
-    console.log(error);
-  }
-};
+  //   Getting Data from BE
+  const getUserDetail = async () => {
+    try {
+      let res = await fetch(`http://localhost:4000/cardsdata/${id}`);
+      console.log(res);
+      let card = await res.json();
+      console.log(card);
+      setName(card.name);
+      setDesc(card.desc);
+      setPrice(card.price);
+      setNumber(card.number);
+      setSelectedDistrict(card.selectedDistrict);
+      setSelectedArea(card.selectedArea);
+      setSelectCategory(card.selectCategory);
+      setGetImage(card.getImage);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const SubmitHandler = async (e) => {
     e.preventDefault();
@@ -167,20 +166,22 @@ const getUserDetail = async () => {
       formData.append("selectDistrict", selectedDistrict);
       formData.append("selectArea", selectedArea);
       formData.append("selectCategory", selectCategory);
-  
-      const response = await Axios.put(`http://localhost:4000/cardsdata/${id}`, formData);
-  
+
+      const response = await Axios.put(
+        `http://localhost:4000/cardsdata/${id}`,
+        formData
+      );
+
       console.log(name);
       navigate("/servicesAll/");
     } catch (error) {
       console.error(error);
     }
   };
-  
-  useEffect(()=>{
-    getUserDetail();
-  },[])
 
+  useEffect(() => {
+    getUserDetail();
+  }, []);
 
   return (
     <div className="container w-50 mt-5">
@@ -343,5 +344,4 @@ const getUserDetail = async () => {
   );
 };
 
-
-export default UpdateServiceForm
+export default UpdateServiceForm;
