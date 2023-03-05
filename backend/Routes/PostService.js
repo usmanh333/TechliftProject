@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded(
 ))
 router.use(bodyParser.json());
 router.use(express.json())
-const post_a_service = require('../models/Users')
+const post_a_service = require('../models/Users') // Shema
 
 
 const multer = require('multer');
@@ -36,8 +36,6 @@ router.get('/cardsdata/uploads/:imageName', (req, res) => {
   const imagePath = `uploads/${imageName}`;
   res.sendFile(imagePath, { root: __dirname });
 });
-
-//   -------------------------------------------------------------------------------------
 
 
 // getting all cards posts

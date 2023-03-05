@@ -1,14 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/Register.css";
-import Footer from "../Components/Footer";
+import Axios from 'axios'
 
-function register() {
+const Register = () => {
+  let [user, setUser] = useState({})
+  let navigate = useNavigate()
+
+  const inputHandler = (e) => {
+    let name = e.target.name
+    let value = e.target.value
+    console.log(name, value)
+    setUser({...user,[name]:value})
+  }
+  const SubmitHandler = async(e) =>{
+    try {
+      e.preventDefault()
+      let formData = new FormData()
+      formData.append('username', user.username)
+      formData.append('email', user.email)
+      formData.append('number', user.number)
+      formData.append('password', user.password)
+      formData.append('retypePassword', user.retypePassword)
+      console.log(user.retypePassword)
+
+      let respo = await Axios.post('http://localhost:4000/register', formData, {
+        headers: { "Content-Type": "application/json" }
+      })
+      navigate('/')
+      window.scrollTo(0, 0);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div>
       <section
         class="h-100 gradient-form bottomS"
-        style={{backgroundImage:
-          "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))", paddingBottom:"200px"}}
+        style={{
+          backgroundImage:
+            "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))",
+          paddingBottom: "200px",
+        }}
       >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -29,7 +63,7 @@ function register() {
                         <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
                       </div>
 
-                      <form>
+                      <form action="/" method="POST" encType="multipart/form-data" >
                         <p>Please login to your account</p>
 
                         <div class="form-outline mb-4">
@@ -38,6 +72,9 @@ function register() {
                             id="form2Example11"
                             class="form-control"
                             placeholder="Enter Username"
+                            name="username"
+                            value={user.username}
+                            onChange={inputHandler}
                           />
                         </div>
                         <div class="form-outline mb-4">
@@ -46,6 +83,9 @@ function register() {
                             id="form2Example11"
                             class="form-control"
                             placeholder="Enter Email Address"
+                            name="email"
+                            value={user.email}
+                            onChange={inputHandler}
                           />
                         </div>
                         <div class="form-outline mb-4">
@@ -54,10 +94,10 @@ function register() {
                             id="form2Example11"
                             class="form-control"
                             placeholder="Enter Phone number"
+                            name="phoneNumber"
+                            value={user.phoneNumber}
+                            onChange={inputHandler}
                           />
-                          {/* <label class="form-label" for="form2Example11">
-                            Username
-                          </label> */}
                         </div>
 
                         <div class="form-outline mb-4">
@@ -66,6 +106,9 @@ function register() {
                             id="form2Example22"
                             class="form-control"
                             placeholder="Password"
+                            name="password"
+                            value={user.password}
+                            onChange={inputHandler}
                           />
                         </div>
                         <div class="form-outline mb-4">
@@ -74,29 +117,27 @@ function register() {
                             id="form2Example22"
                             class="form-control"
                             placeholder="Re-type Password"
+                            name="retypePassword"
+                            value={user.retypePassword}
+                            onChange={inputHandler}
                           />
-                          {/* <label class="form-label" for="form2Example22">
-                            Password
-                          </label> */}
                         </div>
 
                         <div class="text-center pt-1 mb-5 pb-1">
                           <button
-                            class="btn btn-primary btn-block fa-lg gradient-custom-2 pe-4 ps-4 pt-2 pb-2"
+                            class="btn btn-primary  fa-lg gradient-custom-2 pe-4 ps-4 pt-2 pb-2"
                             type="button"
+                            onClick={SubmitHandler}
                           >
                             Register Now
                           </button>
-                          {/* <a class="text-muted" href="#!">
-                            Forgot password?
-                          </a> */}
                         </div>
 
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Already have Account?</p>
-                          <button type="button" class="btn btn-outline-danger">
+                          <Link to={'/login'} type="button" class="btn btn-outline-danger">
                             Login Now
-                          </button>
+                          </Link>
                         </div>
                       </form>
                     </div>
@@ -109,7 +150,7 @@ function register() {
                         Add, But When There Is Nothing Left to Take Away
                       </p>
                     </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -118,6 +159,6 @@ function register() {
       </section>
     </div>
   );
-}
+};
 
-export default register;
+export default Register;

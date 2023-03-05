@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const RegisterShema = new mongoose.Schema({
+const registerShema = new mongoose.Schema({
     username : {
         type : String,
     },
@@ -7,7 +7,7 @@ const RegisterShema = new mongoose.Schema({
         type : String,
     },
     phoneNumber: {
-        type : String,
+        type : Number,
     },
     password : {
         type : String,
@@ -17,4 +17,4 @@ const RegisterShema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('register', RegisterShema)
+module.exports = mongoose.model('register', registerShema)

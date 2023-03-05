@@ -1,8 +1,35 @@
-import React from "react";
+import Axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/loginPage.css";
-import Footer from "../Components/Footer";
 
-const loginPage =()=> {
+const LoginPage =()=> {
+  let [user, setUser] = useState({})
+  let navigate = useNavigate()
+  const inputHandler = (e)=>{
+    let name = e.target.name
+    let value = e.target.value
+    setUser({...user, [name]:value})
+    console.log(value)
+  }
+
+  const submitHandler = async(e)=>{
+    try {
+        e.preventDefault()
+        let formData =  new FormData()
+        formData.append('email', user.email)
+        formData.append('password', user.password)
+        let resp = await Axios.post('http://localhost:4000/login', formData, {
+          headers: {"Content-Type": "application/json"}
+        })
+        console.log(resp)
+        console.log(formData)
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div >
       <section
@@ -29,7 +56,7 @@ const loginPage =()=> {
                         <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
                       </div>
 
-                      <form>
+                      <form action="/" method="POST" encType="multipart/form-data">
                         <p>Please login to your account</p>
 
                         <div class="form-outline mb-4">
@@ -38,10 +65,9 @@ const loginPage =()=> {
                             id="form2Example11"
                             class="form-control"
                             placeholder="Phone number or email address"
+                            value={user.email}
+                            onChange={inputHandler}
                           />
-                          {/* <label class="form-label" for="form2Example11">
-                            Username
-                          </label> */}
                         </div>
 
                         <div class="form-outline mb-4">
@@ -50,6 +76,8 @@ const loginPage =()=> {
                             id="form2Example22"
                             class="form-control"
                             placeholder="Password"
+                            value={user.password}
+                            onChange={inputHandler}
                           />
                           {/* <label class="form-label" for="form2Example22">
                             Password
@@ -60,6 +88,7 @@ const loginPage =()=> {
                           <button
                             class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pe-4 ps-4 pt-2 pb-2"
                             type="button"
+                            onClick={submitHandler}
                           >
                             Log in
                           </button>
@@ -71,9 +100,9 @@ const loginPage =()=> {
 
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Don't have an account?</p>
-                          <button type="button" class="btn btn-outline-danger">
+                          <Link to={'/register'} type="button" class="btn btn-outline-danger">
                             Create new Account
-                          </button> 
+                          </Link> 
                         </div>
                       </form>
                     </div>
@@ -97,4 +126,4 @@ const loginPage =()=> {
   );
 }
 
-export default loginPage;
+export default LoginPage;
