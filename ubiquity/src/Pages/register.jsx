@@ -7,7 +7,8 @@ function register() {
     <div>
       <section
         class="h-100 gradient-form bottomS"
-        style={{ backgroundColor: "#eee" }}
+        style={{backgroundImage:
+          "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))", paddingBottom:"200px"}}
       >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -81,7 +82,7 @@ function register() {
 
                         <div class="text-center pt-1 mb-5 pb-1">
                           <button
-                            class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pt-4 pb-4"
+                            class="btn btn-primary btn-block fa-lg gradient-custom-2 pe-4 ps-4 pt-2 pb-2"
                             type="button"
                           >
                             Register Now
@@ -108,7 +109,7 @@ function register() {
                         Add, But When There Is Nothing Left to Take Away
                       </p>
                     </div>
-                  </div>
+                  </div> 
                 </div>
               </div>
             </div>

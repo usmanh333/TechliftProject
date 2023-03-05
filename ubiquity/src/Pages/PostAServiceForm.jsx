@@ -296,7 +296,7 @@ const PostAServiceForm = () => {
         </label>
         <input
           type="file"
-          id="form4Example2"
+          id="form4Example2" 
           class="form-control mb-4"
           name="imageName"
           // value={inputHandler.price}

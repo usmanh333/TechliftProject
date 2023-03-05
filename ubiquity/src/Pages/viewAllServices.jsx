@@ -19,6 +19,7 @@ const ViewAllServices = () => {
     const result = await fetch("http://localhost:4000/cardsdata"); // getting data from database
     const user = await result.json();
     setShowInput(user);
+    window.scrollTo(0, 0);
     // navigate('/servicesAll/')
   };
   // Delete Funtion
@@ -35,6 +36,7 @@ const ViewAllServices = () => {
 
   useEffect(() => {
     userClick();
+    window.scrollTo(0, 0);
   }, []);
   return (
     <>

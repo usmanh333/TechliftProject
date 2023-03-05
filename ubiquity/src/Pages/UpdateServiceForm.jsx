@@ -184,8 +184,9 @@ const UpdateServiceForm = () => {
   }, []);
 
   return (
-    <div className="container w-50 mt-5">
+    <div className="container" >
       <form
+      className="container w-50 mt-5 fixingBottom"
         onSubmit={SubmitHandler}
         encType="multipart/form-data"
         method="POST"

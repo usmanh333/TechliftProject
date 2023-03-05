@@ -13,9 +13,8 @@
     font-size: 15px;
     text-align: justify;
 } 
-.bottomS{
-    margin-bottom: 400px;
-    background-color: aliceblue !important;
+.container{
+    margin-bottom: 0;
 }
     
     @media (min-width: 768px) {

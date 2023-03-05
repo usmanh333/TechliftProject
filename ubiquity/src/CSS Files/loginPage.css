@@ -13,9 +13,12 @@
     font-size: 15px;
     text-align: justify;
 } 
-.bottomS{
-    margin-bottom: 180px;
+/* .bottomS{
+    padding-bottom: 180px;
     background-color: aliceblue !important;
+} */
+.container{
+    margin-bottom: 0;
 }
     
     @media (min-width: 768px) {

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../CSS Files/ServicesDetails.css";
 import moment from "moment";
-import Footer from "../Components/Footer";
 
 const ServicesDetails = () => {
   const [card, setCard] = useState({});
@@ -23,10 +22,12 @@ const ServicesDetails = () => {
     const result = await fetch("http://localhost:4000/cardsdata"); // getting data from database
     const user = await result.json();
     setShowInput(user);
+    
   };
   useEffect(() => {
     userClick();
     getUserDetail();
+    window.scrollTo(0, 0);
   }, []);
   // getting data ends here
 

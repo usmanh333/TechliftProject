@@ -2,12 +2,13 @@ import React from "react";
 import "../CSS Files/loginPage.css";
 import Footer from "../Components/Footer";
 
-function loginPage() {
+const loginPage =()=> {
   return (
-    <div>
+    <div >
       <section
-        class="h-100 gradient-form bottomS"
-        style={{ backgroundColor: "#eee" }}
+        class="h-100 h-auto gradient-form"
+        style={{backgroundImage:
+          "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))", paddingBottom:"200px"}}
       >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -57,7 +58,7 @@ function loginPage() {
 
                         <div class="text-center pt-1 mb-5 pb-1">
                           <button
-                            class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pt-4 pb-4"
+                            class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pe-4 ps-4 pt-2 pb-2"
                             type="button"
                           >
                             Log in
@@ -72,7 +73,7 @@ function loginPage() {
                           <p class="mb-0 me-2">Don't have an account?</p>
                           <button type="button" class="btn btn-outline-danger">
                             Create new Account
-                          </button>
+                          </button> 
                         </div>
                       </form>
                     </div>
