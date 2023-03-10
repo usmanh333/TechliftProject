@@ -8,11 +8,12 @@ router.use(bodyParser.urlencoded(
 ))
 router.use(bodyParser.json());
 router.use(express.json())
-const post_a_service = require('../models/Users') // Shema
+const post_a_service = require('../models/Users') // Schema
 
 
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'Routes/uploads/');
@@ -51,7 +52,7 @@ router.post('/cards', upload.single('upload'), async (req, res) => {
   // checking file
   if (!req.file) {
     res.status(400).json({ msg: "BAD REQUEST" });
-    return;
+    return; 
   }
   const cards = new post_a_service({
     name: name,

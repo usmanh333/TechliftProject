@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
+const bycrypt = require('bcryptjs')
 const cors = require('cors')
 router.use(express.json())
 router.use(cors())
-let loginSchema = require('../models/Login')
+let registerSchema = require('../models/Register')
 
 
 // getting all users 
 router.get('/login', async(req,res)=>{
     try {
-        let getUser = await loginSchema.find()
+        let getUser = await registerSchema.find()
         res.json(getUser)
     } catch (error) {
         console.error(error)
@@ -19,10 +20,16 @@ router.get('/login', async(req,res)=>{
 // creating new users
 router.post('/login', async(req,res)=>{
     try {
-        let { email, password} = req.body;
-        let login = new loginSchema({email, password})
-        login.save()
-        res.json(login)
+        let { email,  password } = req.body;
+        let loginUser = await registerSchema.findOne({ email})
+        if(!loginUser){
+            return res.status(401).json({ message: "invalid email or password"})
+        }
+        const isPasswordValid = await bycrypt.compare(password, loginUser.password)
+        if(!isPasswordValid){
+            return res.status(401).json({ message: "invalid email or password"})
+        }
+        res.json(loginUser)
     } catch (error) {
         console.error(error)
     }
@@ -32,10 +39,13 @@ router.post('/login', async(req,res)=>{
 
 router.put('/login/:id', async(req, res)=>{
     try {
-        let { email, password} = req.body;
-        let updateUser = await loginSchema.findById(req.params.id)
+        let {username, email, phoneNumber, password, retypePassword} = req.body;
+        let updateUser = await registerSchema.findById(req.params.id)
+        updateUser.username = username
         updateUser.email = email
+        updateUser.phoneNumber = phoneNumber
         updateUser.password = password
+        updateUser.retypePassword = retypePassword
 
         await updateUser.save()
         res.json(updateUser)
@@ -45,9 +55,9 @@ router.put('/login/:id', async(req, res)=>{
 })
 
 // getting user by ID
-router.get('/login/:id', async(req,res)=>{
+router.get('/register/:id', async(req,res)=>{
     try {
-        let getUserByID = await loginSchema.findById(req.params.id)
+        let getUserByID = await registerSchema.findById(req.params.id)
         res.json(getUserByID)
     } catch (error) {
         console.error(error)
@@ -55,9 +65,9 @@ router.get('/login/:id', async(req,res)=>{
 });
 
 // delete user by ID
-router.delete('/login/:id', async(req,res)=>{
+router.delete('/register/:id', async(req,res)=>{
     try {
-        let deleteUserByID = await loginSchema.deleteOne({_id :req.params.id}) // whenever delet a ser take object and then delete DB id to ID
+        let deleteUserByID = await registerSchema.deleteOne({_id :req.params.id}) // whenever delet a ser take object and then delete DB id to ID
         res.json(deleteUserByID)
     } catch (error) {
         console.error(error)

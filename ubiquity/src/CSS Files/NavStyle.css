@@ -15,3 +15,10 @@
 .bg-dark {
     background-color: #000000!important;
 }
+nav a.active{
+ font-weight: bolder;
+ font-size: 17px;
+ text-decoration: underline;
+ background-image:-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733));
+
+}

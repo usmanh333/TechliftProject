@@ -1,12 +1,19 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../CSS Files/ServicesDetails.css";
 import moment from "moment";
 
 const ServicesDetails = () => {
   const [card, setCard] = useState({});
+  let nevigate = useNavigate()
   const { id } = useParams();
+
+  // Related Cards Navigation
+  const Clicked =(url)=>{
+    nevigate(url);
+    window.scrollTo(0, 0);
+  }
 
   const getUserDetail = async () => {
     try {
@@ -27,8 +34,8 @@ const ServicesDetails = () => {
   useEffect(() => {
     userClick();
     getUserDetail();
-    window.scrollTo(0, 0);
-  }, []);
+  }, [showInput]);
+  
   // getting data ends here
 
   return (
@@ -165,13 +172,13 @@ const ServicesDetails = () => {
                         {/* Product actions*/}
                         <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                           <div className="text-center">
-                            <button className="btn">
-                              <Link
+                            <button className="btn btn-outline-dark mt-auto" onClick={()=>Clicked(`/serviceDetails/${val._id}`)}>
+                              {/* <Link
                                 className="btn btn-outline-dark mt-auto"
                                 to={`/serviceDetails/${val._id}`} //Error not Rendering the Service
-                              >
+                              > */}
                                 View More Details
-                              </Link>
+                              {/* </Link> */}
                             </button>
                           </div>
                         </div>

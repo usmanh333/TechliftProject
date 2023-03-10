@@ -81,7 +81,7 @@ const ViewAllServices = () => {
                               src={`http://localhost:4000/cardsdata/uploads/${val.image}`}
                               fluid
                               className="w-100"
-                              style={{ borderRadius: "10px", marginTop: "0px" }}
+                              style={{ borderRadius: "10px", marginTop: "0px" }} 
                             />
                           </Link>
                           <Link to={`/serviceDetails/${val._id}`}>

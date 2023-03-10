@@ -13,7 +13,7 @@ const Register = () => {
     console.log(name, value)
     setUser({...user,[name]:value})
   }
-  const SubmitHandler = async(e) =>{
+  const SubmitHandler = async(e) =>{ 
     try {
       e.preventDefault()
       let formData = new FormData()
@@ -27,7 +27,7 @@ const Register = () => {
       let respo = await Axios.post('http://localhost:4000/register', formData, {
         headers: { "Content-Type": "application/json" }
       })
-      navigate('/')
+      navigate('/login')
       window.scrollTo(0, 0);
     } catch (error) {
       console.error(error)

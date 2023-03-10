@@ -139,7 +139,7 @@ const PostAServiceForm = () => {
   const handleInputChange = (e) => {
     setInputHandler({ ...inputHandler, [e.target.name]: e.target.value });
   };
-
+ 
   const SubmitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -159,8 +159,7 @@ const PostAServiceForm = () => {
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+        });
 
       console.log(response.data.name);
       navigate("/servicesAll/");
@@ -228,7 +227,7 @@ const PostAServiceForm = () => {
           </label>
           <input
             type="number"
-            id="form4Example2"
+            id="form4Example2" 
             class="form-control"
             name="number"
             value={inputHandler.number}
@@ -298,7 +297,7 @@ const PostAServiceForm = () => {
           type="file"
           id="form4Example2" 
           class="form-control mb-4"
-          name="imageName"
+          name=" "
           // value={inputHandler.price}
           onChange={handleImage}
         />

@@ -12,6 +12,7 @@ import PostAServiceForm from './Pages/PostAServiceForm';
 import UpdateServiceForm from './Pages/UpdateServiceForm';
 import ServicesDetails from './Pages/ServicesDetails';
 import Footer from './Components/Footer';
+import PageNotFound from './Components/PageNotFound';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/serviceDetails/:id" element={<ServicesDetails />}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
+        <Route path='*' element={<PageNotFound/>} />
       </Routes>
       <Footer/>
 

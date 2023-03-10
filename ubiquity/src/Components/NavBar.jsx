@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -27,13 +27,13 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item text-light">
-              <Link
+              <NavLink
                 to="/"
-                className="nav-link text-light active"
+                className="nav-link text-light"
                 aria-current="page"
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
             
             <li className="nav-item dropdown">
@@ -48,46 +48,46 @@ function NavBar() {
               </Link>
               <ul className="dropdown-menu bg-dark">
                 <li>
-                  <Link
+                  <NavLink
                     to="/services"
                     className="dropdown-item text-light bg-dark"
                   >
                     Services By Categories
-                  </Link>
+                  </NavLink>
                 </li>
                 <li></li>
                 <li>
-                  <Link
+                  <NavLink
                     to="/servicesAll"
                     className="dropdown-item text-light bg-dark"
                   >
                     View All Services
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <NavLink
                     to="/postAService"
                     className="dropdown-item text-light bg-dark"
                   >
                     Post A Service
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
             <li className="nav-item">
-              <Link to="/about" className="nav-link text-light">
+              <NavLink to="/about" className="nav-link text-light">
                 About
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/login" className="nav-link text-light">
+              <NavLink to="/login" className="nav-link text-light">
                 Login
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/register" className="nav-link text-light">
+              <NavLink to="/register" className="nav-link text-light">
                 Register
-              </Link>
+              </NavLink>
             </li>
           </ul>
           <form className="d-flex" role="search">

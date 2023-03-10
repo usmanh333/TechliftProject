@@ -14,16 +14,14 @@ const LoginPage =()=> {
   }
 
   const submitHandler = async(e)=>{
+    e.preventDefault()
     try {
-        e.preventDefault()
-        let formData =  new FormData()
-        formData.append('email', user.email)
-        formData.append('password', user.password)
-        let resp = await Axios.post('http://localhost:4000/login', formData, {
-          headers: {"Content-Type": "application/json"}
-        })
-        console.log(resp)
-        console.log(formData)
+        // let formData =  new FormData()
+        // formData.append('email', user.email)
+        // formData.append('password', user.password)
+        let resp = await Axios.post('http://localhost:4000/login', user) 
+        console.log(resp.data)
+        // console.log(formData)
 
     } catch (error) {
       console.error(error)
