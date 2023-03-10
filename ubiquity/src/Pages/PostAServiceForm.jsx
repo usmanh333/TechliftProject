@@ -1,21 +1,50 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as yup from "yup";
 
 const PostAServiceForm = () => {
+  // Validation function Starts
+
+  const formValidation = yup.object({
+    name: yup.string().required("The Service title is required...!!!"),
+    desc: yup.string().max(500).required("The Service description is required"),
+    price: yup
+      .string()
+      .min(1, "The minimum price should be 100")
+      .required("The Service price is required and should be above then 100RS"),
+    number: yup.number().required("The number is required"),
+    selectDistrict: yup
+      .string()
+      .required("Please select your District Above...!!!"),
+    selectArea: yup.string().required("Please select your Area Above...!!!"),
+    selectCategory: yup
+      .string()
+      .required("Please select your Category Above...!!!"),
+    checkbox: yup
+      .string()
+      .required(
+        "Please tick the checkbox if you have filled the correct information."
+      ),
+      image:yup.string().required('The image is required')
+  });
+
+  // Validation function End
+
   let navigate = useNavigate();
-
-  // Image state
-
-  const [getImage, setGetImage] = useState(null);
-
-  // Select States
-
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedArea, setSelectedArea] = useState("");
-  const [selectCategory, setSelectCategory] = useState("");
-  const [options, setOptions] = useState([
+  const initialValues = {
+    name: "",
+    desc: "",
+    price: "",
+    number: "",
+    selectDistrict: "",
+    selectArea: "",
+    selectCategory: "",
+    checkbox: "",
+    image: null,
+  };
+  const options = [
     {
       category: "districts",
       options: ["Lahore", "Jhang", "Vehari", "Kasur"],
@@ -55,7 +84,6 @@ const PostAServiceForm = () => {
         "Buses",
         "Wifi Provider",
         "Fruit Shops",
-        "Electrician",
         "Labours",
         "Pakistan Post",
         "Plumber",
@@ -63,269 +91,212 @@ const PostAServiceForm = () => {
         "Other",
       ],
     },
-  ]);
-  // Checkbox state
-  const [checked, setChecked] = useState(false);
-
-  // Input Handler State
-  const [inputHandler, setInputHandler] = useState({
-    name: "",
-    desc: "",
-    price: "",
-    number: "",
-  });
-
-  // image handler
-  const handleImage = async (e) => {
-    setGetImage(e.target.files[0]);
-  };
-
-  // Select start from here
-
-  const handleDistrictChange = (event) => {
-    setSelectedDistrict(event.target.value);
-    setSelectedArea("");
-  };
-
-  const handleAreaChange = (event) => {
-    setSelectedArea(event.target.value);
-  };
-  const handleCategoryChange = (event) => {
-    setSelectCategory(event.target.value);
-  };
-
-  const handleCheckboxChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
-  const getDistrictOptions = () => {
-    return options
-      .find((option) => option.category === "districts")
-      .options.map((district) => (
-        <option key={district} value={district}>
-          {district}
-        </option>
-      ));
-  };
-
-  const getAreaOptions = () => {
-    if (!selectedDistrict) {
-      return null;
-    }
-    const areas = options.find((option) => option.category === "areas").options[
-      selectedDistrict
-    ];
-    return areas.map((area) => (
-      <option key={area} value={area}>
-        {area}
-      </option>
-    ));
-  };
-
-  const handleCategories = () => {
-    return options
-      .find((option) => option.category === "productsCategory")
-      .options.map((category) => (
-        <option key={category} value={category}>
-          {category}
-        </option>
-      ));
-  };
-
-  // Select Ends here
-
-  //input handler
-
-  const handleInputChange = (e) => {
-    setInputHandler({ ...inputHandler, [e.target.name]: e.target.value });
-  };
- 
-  const SubmitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      // upload image and post the data to the server
-      const formData = new FormData();
-      formData.append("upload", getImage);
-      formData.append("name", inputHandler.name);
-      formData.append("desc", inputHandler.desc);
-      formData.append("price", inputHandler.price);
-      formData.append("number", inputHandler.number);
-      formData.append("selectDistrict", selectedDistrict);
-      formData.append("selectArea", selectedArea);
-      formData.append("selectCategory", selectCategory);
-
-      const response = await Axios.post(
-        "http://localhost:4000/cards",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-      console.log(response.data.name);
-      navigate("/servicesAll/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  ];
 
   return (
     <div className="container w-50 mt-5 fixingBottom">
-      <form
-        onSubmit={SubmitHandler}
-        encType="multipart/form-data"
-        method="POST"
-        className="fixingBottom"
+      <Formik
+        validationSchema={formValidation}
+        initialValues={initialValues}
+        onSubmit={async (values) => {
+          try {
+            await Axios.post("http://localhost:4000/cards", values, {
+              headers: { "Content-Type": "multipart/form-data" },
+            });
+            navigate("/servicesAll/");
+          } catch (error) {
+            console.error(error);
+          }
+        }}
       >
-        {/* <!-- Name input --> */}
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example1">
-            Enter Services Title:
-          </label>
-          <input
-            type="text"
-            id="form4Example1"
-            name="name"
-            class="form-control"
-            value={inputHandler.name}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        {/* <!-- Message input --> */}
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example3">
-            Enter Skills/Work Description *
-          </label>
-          <textarea
-            class="form-control"
-            id="form4Example3"
-            rows="4"
-            name="desc"
-            value={inputHandler.desc}
-            onChange={handleInputChange}
-          ></textarea>
-        </div>
-
-        {/* <!-- Price input --> */}
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example2">
-            Enter Prices :-
-          </label>
-          <input
-            type="text"
-            id="form4Example2"
-            class="form-control"
-            name="price"
-            value={inputHandler.price}
-            onChange={handleInputChange}
-          />
-        </div>
-        {/* <!-- Contact input --> */}
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example2">
-            Enter Contact No :-
-          </label>
-          <input
-            type="number"
-            id="form4Example2" 
-            class="form-control"
-            name="number"
-            value={inputHandler.number}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        {/* Select Starts from here  */}
-        <div>
-          <label className="form-label" htmlFor="district-select">
-            Select District:
-          </label>
-          <select
-            class="form-control mb-4"
-            aria-label=".form-select-sm example"
-            name="selectDistrict"
-            id="district-select"
-            value={selectedDistrict}
-            onChange={handleDistrictChange}
-          >
-            <option value="option1">Select a district</option>
-            {getDistrictOptions()}
-          </select>
-
-          {selectedDistrict && (
-            <div>
-              <label className="form-label" htmlFor="area-select">
-                Select Area:
+        {({ values, setFieldValue }) => (
+          <Form className="fixingBottom">
+            {/* <!-- Name input --> */}
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form4Example1">
+                Enter Services Title:
               </label>
-              <select
-                class="form-control mb-4"
-                aria-label=".form-select-sm example"
-                name="selectArea"
-                id="area-select"
-                value={selectedArea}
-                onChange={handleAreaChange}
-              >
-                <option value="option1">Select an area</option>
-                {getAreaOptions()}
-              </select>
+              <Field
+                type="text"
+                id="form4Example1"
+                name="name"
+                class="form-control"
+              />
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="name" />
+              </span>
             </div>
-          )}
-          {/* Category Section */}
-          <label className="form-label" htmlFor="category-select">
-            Select Category:
-          </label>
-          <select
-            class="form-control mb-4"
-            aria-label=".form-select-sm example"
-            name="selectDistrict"
-            id="district-select"
-            value={selectCategory}
-            onChange={handleCategoryChange}
-          >
-            <option value="option1">Select a Category</option>
-            {handleCategories()}
-          </select>
-        </div>
 
-        {/* Select Starts from here  */}
+            {/* <!-- Message input --> */}
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form4Example3">
+                Enter Skills/Work Description *
+              </label>
+              <Field
+                class="form-control"
+                id="form4Example3"
+                rows="4"
+                name="desc"
+                as="textarea"
+              ></Field>
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="desc" />
+              </span>
+            </div>
 
-        {/* Image Input */}
-        <label class="form-label" for="form4Example2">
-          Select Image
-        </label>
-        <input
-          type="file"
-          id="form4Example2" 
-          class="form-control mb-4"
-          name=" "
-          // value={inputHandler.price}
-          onChange={handleImage}
-        />
+            {/* <!-- Price input --> */}
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form4Example2">
+                Enter Prices :-
+              </label>
+              <Field
+                type="text"
+                id="form4Example2"
+                class="form-control"
+                name="price"
+              />
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="price" />
+              </span>
+            </div>
+            {/* <!-- Contact input --> */}
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form4Example2">
+                Enter Contact No :-
+              </label>
+              <Field
+                type="number"
+                id="form4Example2"
+                class="form-control"
+                name="number"
+              />
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="number" />
+              </span>
+            </div>
 
-        {/* CheckBox */}
-        <div class="input-group mb-3">
-          <div class="input-group-text">
+            {/* Select Starts from here  */}
+
+            <div>
+              <label className="form-lable" htmlFor="district">
+                District
+              </label>
+              <Field
+                as="select"
+                id="district"
+                name="selectDistrict"
+                className="form-control mb-4"
+              >
+                <option value="">Select District</option>
+                {options
+                  .find((option) => option.category === "districts")
+                  .options.map((district) => (
+                    <option key={district} value={district}>
+                      {district}
+                    </option>
+                  ))}
+              </Field>
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="selectDistrict" />
+              </span>
+            </div>
+            <div>
+              <label className="form-lable" htmlFor="area">
+                Area
+              </label>
+              <Field
+                as="select"
+                id="area"
+                name="selectArea"
+                disabled={!values.selectDistrict}
+                className="form-control mb-4"
+              >
+                <option value="">Select Area</option>
+                {values.selectDistrict &&
+                  options
+                    .find((option) => option.category === "areas")
+                    .options[values.selectDistrict].map((area) => (
+                      <option key={area} value={area}>
+                        {area}
+                      </option>
+                    ))}
+              </Field>
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="selectArea" />
+              </span>
+            </div>
+            <div>
+              <label className="form-lable" htmlFor="category">
+                Category
+              </label>
+              <Field
+                as="select"
+                id="category"
+                name="selectCategory"
+                className="form-control mb-4"
+              >
+                <option value="">Select Category</option>
+                {options
+                  .find((option) => option.category === "productsCategory")
+                  .options.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+              </Field>
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="selectCategory" />
+              </span>
+            </div>
+
+            {/* Select Starts from here  */}
+
+            {/* Image Input */}
+            <label class="form-label" for="form4Example2">
+              Select Image
+            </label>
             <input
-              class="form-check-input mt-0"
-              type="checkbox"
-              checked={checked}
-              onChange={handleCheckboxChange}
-              name="checkbox"
-              aria-label="Checkbox for following text input"
+              type="file"
+              id="form4Example2"
+              class="form-control mb-4"
+              onChange={(event) => {
+                setFieldValue("image", event.currentTarget.files[0]);
+              }}
             />
-          </div>
-          <label class="form-label ps-2 pt-2" for="form4Example2">
-            Please Check the Box if You have fill the Complete Informations
-            Properly.!!!
-          </label>
-        </div>
+            <span style={{ color: "red", fontStyle: "italic" }}>
+              <ErrorMessage name="image" />
+            </span>
+            
 
-        {/* <!-- Submit button --> */}
+            {/* CheckBox */}
+            <div class="input-group mb-3">
+              <div class="input-group-text">
+                <Field
+                  class="form-check-input mt-0"
+                  type="checkbox"
+                  name="checkbox"
+                  aria-label="Checkbox for following text input"
+                />
+              </div>
+              <label class="form-label ps-2 pt-2" for="form4Example2">
+                Please Check the Box if You have fill the Complete Informations
+                Properly.!!!
+              </label>
+              <br />
+              <span style={{ color: "red", fontStyle: "italic" }}>
+                <ErrorMessage name="checkbox" />
+              </span>
+              <br />
+            </div>
 
-        <button type="submit" class="btn btn-primary btn-block mb-4">
-          Post Service Now
-        </button>
-      </form>
+            {/* <!-- Submit button --> */}
+
+            <button type="submit" class="btn btn-primary btn-block mb-4">
+              Post Service Now
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

@@ -47,7 +47,7 @@ router.get('/cardsdata', async(req, res) =>{
 
 
 // posting cards 
-router.post('/cards', upload.single('upload'), async (req, res) => {
+router.post('/cards', upload.single('image'), async (req, res) => {
   const { name, desc, price, number, selectDistrict, selectArea ,checkbox,selectCategory } = req.body;
   // checking file
   if (!req.file) {
