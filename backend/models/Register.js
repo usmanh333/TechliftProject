@@ -2,20 +2,23 @@ const mongoose = require('mongoose');
 const registerShema = new mongoose.Schema({
     username : {
         type : String,
-        unique : true,
+        require:true,
     },
     email: {
         type : String,
-        unique : true,
+        require:true,
     },
     phoneNumber: {
         type : Number,
+        require:true,
     },
     password : {
         type : String,
+        require:true,
     },
     retypePassword: {
         type : String,
+        require:true,
     }
 })
 

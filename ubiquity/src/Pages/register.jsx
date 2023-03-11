@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/Register.css";
 import Axios from "axios";
@@ -7,7 +7,7 @@ import * as yup from "yup";
 
 const Register = () => {
   let navigate = useNavigate();
-  // initialState
+  // initialState 
   const initialValue = {
     username: "",
     email: "",
@@ -69,23 +69,30 @@ const Register = () => {
                       <Formik
                         validationSchema={registerValidation}
                         initialValues={initialValue}
-                        onSubmit={async (values) => {
+                        onSubmit={async (values, { setErrors }) => {
                           try {
-                            await Axios.post(
+                            let res = await Axios.post(
                               "http://localhost:4000/register",
                               values,
                               {
                                 headers: { "Content-Type": "application/json" },
                               }
                             );
-                            console.log(values)
-                            navigate("/login");
-                            window.scrollTo(0, 0);
+                            console.log(res.data.error)
+                            if (res.data.error === "Already registered") {  // Here we are comparing ours error from backend if its matches then the return part executed else navigate
+                              return setErrors({ email: "This Email is Already Been Registered" });
+                            } else {
+                              console.log(values)
+                              console.log(res)
+                              navigate("/login");
+                              window.scrollTo(0, 0);
+                            }  
                           } catch (error) {
-                            console.error(error);
+                            console.error(error);                          
                           }
-                        }}
+                        }}                        
                       >
+                        {({ errors }) => (
                         <Form>
                           <p>Please login to your account</p>
 
@@ -112,6 +119,7 @@ const Register = () => {
                             <span style={{ color: "red", fontStyle: "italic" }}>
                             <ErrorMessage name="email" />
                             </span>
+                            {errors.email && <div className="invalid-feedback">{errors.email}</div>} {/* display error message */}
                           </div>
                           <div class="form-outline mb-4">
                             <Field
@@ -150,7 +158,10 @@ const Register = () => {
                             <ErrorMessage name="retypePassword" />
                             </span>
                           </div>
-
+                          {/* <span style={{ color: "red", fontStyle: "italic" }}>
+                              {errors.general && <div>{errors.general}</div>}{" "} */}
+                              {/* Handling errors */}
+                            {/* </span> */}
                           <div class="text-center pt-1 mb-5 pb-1">
                             <button
                               class="btn btn-primary  fa-lg gradient-custom-2 pe-4 ps-4 pt-2 pb-2"
@@ -171,6 +182,7 @@ const Register = () => {
                             </Link>
                           </div>
                         </Form>
+                        )}
                       </Formik>
                     </div>
                   </div>

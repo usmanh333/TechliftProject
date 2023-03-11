@@ -26,8 +26,8 @@ router.post('/register', async(req,res)=>{
             return res.json({error: 'Already registered'})
         }
         let hashedPassword = await bycrypt.hash(password, 10) // hashing the password
-        let register = new registerSchema({username, email, phoneNumber, password : hashedPassword, retypePassword})
-        register.save()
+        let register =  new registerSchema({username, email, phoneNumber, password : hashedPassword, retypePassword})
+        await register.save()
         res.json(register)
     } catch (error) {
         console.error(error)

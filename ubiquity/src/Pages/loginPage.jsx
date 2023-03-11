@@ -2,38 +2,30 @@ import Axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/loginPage.css";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as yup from "yup";
 
-const LoginPage =()=> {
-  let [user, setUser] = useState({})
-  let navigate = useNavigate()
-  const inputHandler = (e)=>{
-    let name = e.target.name
-    let value = e.target.value
-    setUser({...user, [name]:value})
-    console.log(value)
-  }
-
-  const submitHandler = async(e)=>{
-    e.preventDefault()
-    try {
-        // let formData =  new FormData()
-        // formData.append('email', user.email)
-        // formData.append('password', user.password)
-        let resp = await Axios.post('http://localhost:4000/login', user) 
-        console.log(resp.data)
-        // console.log(formData)
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
+const LoginPage = () => {
+  const [error, setError] = useState(null); // Getting the errors if username or password is incorrect
+  let navigate = useNavigate();
+  const initialValue = {
+    email: "",
+    password: "",
+  };
+  const loginValidation = yup.object({
+    email: yup.string().required("The email is required"),
+    password: yup.string().required("The password is required"),
+  });
 
   return (
-    <div >
+    <div>
       <section
         class="h-100 h-auto gradient-form"
-        style={{backgroundImage:
-          "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))", paddingBottom:"200px"}}
+        style={{
+          backgroundImage:
+            "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))",
+          paddingBottom: "200px",
+        }}
       >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -54,55 +46,90 @@ const LoginPage =()=> {
                         <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
                       </div>
 
-                      <form action="/" method="POST" encType="multipart/form-data">
-                        <p>Please login to your account</p>
+                      <Formik
+                        validationSchema={loginValidation}
+                        initialValues={initialValue}
+                        onSubmit={async (values, { setSubmitting }) => {
+                          try {
+                            await Axios.post(
+                              "http://localhost:4000/login",
+                              values
+                            );
+                            navigate("/servicesAll");
+                          } catch (error) {
+                            console.error(error);
+                            setError("Invalid email address or password");  // setting the state and displaying the error
+                          }
+                          console.log(values);
+                          setSubmitting(false); // its a function coming from actions which is destructure above it can be actions.setSubmitting
+                        }}
+                      >
+                        {({ isSubmitting }) => (
+                          <Form>
+                            <p>Please login to your account</p>
 
-                        <div class="form-outline mb-4">
-                          <input
-                            type="email"
-                            id="form2Example11"
-                            class="form-control"
-                            placeholder="Phone number or email address"
-                            value={user.email}
-                            onChange={inputHandler}
-                          />
-                        </div>
+                            <div class="form-outline mb-4">
+                              <Field
+                                type="text"
+                                id="form2Example11"
+                                class="form-control"
+                                placeholder="Phone number or email address"
+                                name="email"
+                              />
+                              <span
+                                style={{ color: "red", fontStyle: "italic" }}
+                              >
+                                <ErrorMessage name="email" />
+                              </span>
+                            </div>
 
-                        <div class="form-outline mb-4">
-                          <input
-                            type="password"
-                            id="form2Example22"
-                            class="form-control"
-                            placeholder="Password"
-                            value={user.password}
-                            onChange={inputHandler}
-                          />
-                          {/* <label class="form-label" for="form2Example22">
-                            Password
-                          </label> */}
-                        </div>
+                            <div class="form-outline mb-4">
+                              <Field
+                                type="password"
+                                id="form2Example22"
+                                class="form-control"
+                                placeholder="Password"
+                                name="password"
+                              />
+                              <span
+                                style={{ color: "red", fontStyle: "italic" }}
+                              >
+                                <ErrorMessage name="password" />
+                              </span>
+                            </div>
+                            <span style={{ color: "red", fontStyle: "italic" }}>
+                              {error && <div>{error}</div>}{" "}
+                              {/* Handling errors */}
+                            </span>
+                            <br />
+                            <div class="text-center pt-1 mb-5 pb-1">
+                              <button
+                                class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pe-4 ps-4 pt-2 pb-2"
+                                type="submit"
+                                disabled={isSubmitting}
+                              >
+                                Log in
+                              </button>
 
-                        <div class="text-center pt-1 mb-5 pb-1">
-                          <button
-                            class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pe-4 ps-4 pt-2 pb-2"
-                            type="button"
-                            onClick={submitHandler}
-                          >
-                            Log in
-                          </button>
-                          <br />
-                          <a class="text-muted" href="#!">
-                            Forgot password?
-                          </a>
-                        </div>
+                              <br />
+                              <a class="text-muted" href="#">
+                                Forgot password?
+                              </a>
+                            </div>
+                          </Form>
+                        )}
+                      </Formik>
 
-                        <div class="d-flex align-items-center justify-content-center pb-4">
-                          <p class="mb-0 me-2">Don't have an account?</p>
-                          <Link to={'/register'} type="button" class="btn btn-outline-danger">
-                            Create new Account
-                          </Link> 
-                        </div>
-                      </form>
+                      <div class="d-flex align-items-center justify-content-center pb-4">
+                        <p class="mb-0 me-2">Don't have an account?</p>
+                        <Link
+                          to={"/register"}
+                          type="button"
+                          class="btn btn-outline-danger"
+                        >
+                          Create new Account
+                        </Link>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -122,6 +149,6 @@ const LoginPage =()=> {
       </section>
     </div>
   );
-}
+};
 
 export default LoginPage;

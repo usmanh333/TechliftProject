@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../Components/Footer";
 import {
   MDBContainer,
   MDBRow,
@@ -10,7 +9,6 @@ import {
   MDBRipple,
 } from "mdb-react-ui-kit";
 import "../CSS Files/ProductUI.css";
-import moment from "moment";
 import { Link } from "react-router-dom";
 
 const ViewAllServices = () => {
