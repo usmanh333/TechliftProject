@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded(
 ))
 router.use(bodyParser.json());
 router.use(express.json())
-const post_a_service = require('../models/Users') // Schema
+const post_a_service = require('../models/PostService') // Schema
 
 
 const multer = require('multer');

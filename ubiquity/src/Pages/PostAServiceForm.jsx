@@ -104,6 +104,7 @@ const PostAServiceForm = () => {
               headers: { "Content-Type": "multipart/form-data" },
             });
             navigate("/servicesAll/");
+            window.scrollTo(0, 0);
           } catch (error) {
             console.error(error);
           }

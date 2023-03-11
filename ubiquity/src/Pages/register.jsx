@@ -1,38 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/Register.css";
-import Axios from 'axios'
+import Axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as yup from "yup";
 
 const Register = () => {
-  let [user, setUser] = useState({})
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+  // initialState
+  const initialValue = {
+    username: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    retypePassword: "",
+  };
 
-  const inputHandler = (e) => {
-    let name = e.target.name
-    let value = e.target.value
-    console.log(name, value)
-    setUser({...user,[name]:value})
-  }
-  const SubmitHandler = async(e) =>{ 
-    try {
-      e.preventDefault()
-      let formData = new FormData()
-      formData.append('username', user.username)
-      formData.append('email', user.email)
-      formData.append('number', user.number)
-      formData.append('password', user.password)
-      formData.append('retypePassword', user.retypePassword)
-      console.log(user.retypePassword)
-
-      let respo = await Axios.post('http://localhost:4000/register', formData, {
-        headers: { "Content-Type": "application/json" }
-      })
-      navigate('/login')
-      window.scrollTo(0, 0);
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // Validation Schema
+  const registerValidation = yup.object({
+    username: yup
+      .string()
+      .min(5, "The username must contains more than 5 characters")
+      .max(20, "The password must not be more than 20 characters long")
+      .required("The username is required...!!!"),
+    email: yup.string().required("The email is required"),
+    phoneNumber: yup.number().required("The phone number is required"),
+    password: yup
+      .string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,  // regex for strong password 
+        "Enter Strong Password \n Password must contains 8 characters length \n,  1 Upper Case, 1 Special Character (!@#$&*), 2 numerals (0-9) and some letters in Lower Case"
+      )
+      .required("The password field is required"),
+    retypePassword: yup
+      .string()
+      .required("The Repeat password field is required")
+      .oneOf([yup.ref("password"), null], "Both passwords must be matched"), // to match both Password fields
+  });
 
   return (
     <div>
@@ -62,84 +66,112 @@ const Register = () => {
                         />
                         <h4 class="mt-1 mb-5 pb-1">We are The Ubiquity Team</h4>
                       </div>
+                      <Formik
+                        validationSchema={registerValidation}
+                        initialValues={initialValue}
+                        onSubmit={async (values) => {
+                          try {
+                            await Axios.post(
+                              "http://localhost:4000/register",
+                              values,
+                              {
+                                headers: { "Content-Type": "application/json" },
+                              }
+                            );
+                            console.log(values)
+                            navigate("/login");
+                            window.scrollTo(0, 0);
+                          } catch (error) {
+                            console.error(error);
+                          }
+                        }}
+                      >
+                        <Form>
+                          <p>Please login to your account</p>
 
-                      <form action="/" method="POST" encType="multipart/form-data" >
-                        <p>Please login to your account</p>
+                          <div class="form-outline mb-4">
+                            <Field
+                              type="text"
+                              id="form2Example11"
+                              class="form-control"
+                              placeholder="Enter Username"
+                              name="username"
+                            />
+                            <span style={{ color: "red", fontStyle: "italic" }}>
+                            <ErrorMessage name="username" /> {/* Handling Errors */}
+                            </span>
+                          </div>
+                          <div class="form-outline mb-4">
+                            <Field
+                              type="email"
+                              id="form2Example12"
+                              class="form-control"
+                              placeholder="Enter Email Address"
+                              name="email"
+                            />
+                            <span style={{ color: "red", fontStyle: "italic" }}>
+                            <ErrorMessage name="email" />
+                            </span>
+                          </div>
+                          <div class="form-outline mb-4">
+                            <Field
+                              type="number"
+                              id="form2Example13"
+                              class="form-control"
+                              placeholder="Enter Phone number"
+                              name="phoneNumber"
+                            />
+                            <span style={{ color: "red", fontStyle: "italic" }}>
+                            <ErrorMessage name="phoneNumber" />
+                            </span>
+                          </div>
 
-                        <div class="form-outline mb-4">
-                          <input
-                            type="text"
-                            id="form2Example11"
-                            class="form-control"
-                            placeholder="Enter Username"
-                            name="username"
-                            value={user.username}
-                            onChange={inputHandler}
-                          />
-                        </div>
-                        <div class="form-outline mb-4">
-                          <input
-                            type="email"
-                            id="form2Example11"
-                            class="form-control"
-                            placeholder="Enter Email Address"
-                            name="email"
-                            value={user.email}
-                            onChange={inputHandler}
-                          />
-                        </div>
-                        <div class="form-outline mb-4">
-                          <input
-                            type="number"
-                            id="form2Example11"
-                            class="form-control"
-                            placeholder="Enter Phone number"
-                            name="phoneNumber"
-                            value={user.phoneNumber}
-                            onChange={inputHandler}
-                          />
-                        </div>
+                          <div class="form-outline mb-4">
+                            <Field
+                              type="password"
+                              id="form2Example22"
+                              class="form-control"
+                              placeholder="Password"
+                              name="password"
+                            />
+                            <span style={{ color: "red", fontStyle: "italic" }}>
+                            <ErrorMessage name="password" />
+                            </span>
+                          </div>
+                          <div class="form-outline mb-4">
+                            <Field
+                              type="password"
+                              id="form2Example23"
+                              class="form-control"
+                              placeholder="Re-type Password"
+                              name="retypePassword"
+                            />
+                            <span style={{ color: "red", fontStyle: "italic" }}>
+                            <ErrorMessage name="retypePassword" />
+                            </span>
+                          </div>
 
-                        <div class="form-outline mb-4">
-                          <input
-                            type="password"
-                            id="form2Example22"
-                            class="form-control"
-                            placeholder="Password"
-                            name="password"
-                            value={user.password}
-                            onChange={inputHandler}
-                          />
-                        </div>
-                        <div class="form-outline mb-4">
-                          <input
-                            type="password"
-                            id="form2Example22"
-                            class="form-control"
-                            placeholder="Re-type Password"
-                            name="retypePassword"
-                            value={user.retypePassword}
-                            onChange={inputHandler}
-                          />
-                        </div>
+                          <div class="text-center pt-1 mb-5 pb-1">
+                            <button
+                              class="btn btn-primary  fa-lg gradient-custom-2 pe-4 ps-4 pt-2 pb-2"
+                              type="submit"
+                            >
+                              Register Now
+                            </button>
+                          </div>
 
-                        <div class="text-center pt-1 mb-5 pb-1">
-                          <button
-                            class="btn btn-primary  fa-lg gradient-custom-2 pe-4 ps-4 pt-2 pb-2"
-                            type="button"
-                            onClick={SubmitHandler}
-                          >
-                            Register Now
-                          </button>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center pb-4">
-                          <p class="mb-0 me-2">Already have Account?</p>
-                          <Link to={'/login'} type="button" class="btn btn-outline-danger">
-                            Login Now
-                          </Link>
-                        </div>
-                      </form>
+                          <div class="d-flex align-items-center justify-content-center pb-4">
+                            <p class="mb-0 me-2">Already have Account?</p>
+                            <Link
+                              to={"/login"}
+                              type="button"
+                              class="btn btn-outline-danger"
+                            >
+                              Login Now
+                            </Link>
+                          </div>
+                        </Form>
+                      </Formik>
                     </div>
                   </div>
                   <div class="col-lg-6 d-flex align-items-center gradient-custom-2">

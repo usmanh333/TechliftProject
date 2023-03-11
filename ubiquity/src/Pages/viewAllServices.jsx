@@ -47,7 +47,7 @@ const ViewAllServices = () => {
             className="text-center"
             style={{
               backgroundImage:
-                "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))",
+                "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))", scrollBehavior:"smooth"
             }}
           >
             <div className="headingFifth">
