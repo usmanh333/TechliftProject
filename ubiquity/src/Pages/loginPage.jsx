@@ -5,7 +5,7 @@ import "../CSS Files/loginPage.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 
-const LoginPage = () => {
+const LoginPage = ({ setLoggedIn }) => {
   const [error, setError] = useState(null); // Getting the errors if username or password is incorrect
   let navigate = useNavigate();
   const initialValue = {
@@ -57,6 +57,7 @@ const LoginPage = () => {
                             );
                             navigate("/servicesAll");
                             localStorage.setItem('secretKey',JSON.stringify(values)) //setting key and user in local storage
+                            setLoggedIn(true); // update the loggedIn state variable
                             console.log(values)
                           } catch (error) {
                             console.error(error);

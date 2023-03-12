@@ -1,15 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
-function NavBar() {
-  // useEffect(()=>{
-    // let navigate = useNavigate()
-  //   let auth = localStorage.getItem('secretKey')
-  //   if(auth) {
-  //     navigate('/')
-  //   }
-  // })
-  let auth = localStorage.getItem("secretKey"); // giving authorization to user by getting the key 
+const NavBar = ({loggedIn, setLoggedIn}) => {
+  // const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in
+    let auth = localStorage.getItem("secretKey"); // giving authorization to user by getting the key 
+    if (auth) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
+  const handleLogout = () => {
+    // Clear local storage and set loggedIn to false
+    localStorage.clear();
+    setLoggedIn(false);
+  };
+  
   return (
     // Navigation bar Starts from here
     <nav className="navbar navbar-expand-lg bg-dark text-light ps-5 pe-5 ">
@@ -72,7 +81,7 @@ function NavBar() {
                     View All Services
                   </NavLink>
                 </li>
-                {auth && (
+                {loggedIn && (
                   <li>
                     <NavLink
                       to="/postAService"
@@ -90,7 +99,7 @@ function NavBar() {
               </NavLink>
             </li>
             {/*  Conditionally rendering if the user login show logount button else show login register   */}
-            {!auth && (
+            {!loggedIn && (
               <>
                 <li className="nav-item">
                   <NavLink to="/login" className="nav-link text-light">
@@ -104,7 +113,7 @@ function NavBar() {
                 </li>
               </>
             )}
-            {auth && (
+            {loggedIn && (
               <>
                 <li className="nav-item">
                   <NavLink
@@ -117,7 +126,7 @@ function NavBar() {
                 <li className="nav-item">
                   <Link
                     to="/"
-                    onClick={() => localStorage.clear()}
+                    onClick={handleLogout}
                     className="nav-link text-light"
                   >
                     Logout

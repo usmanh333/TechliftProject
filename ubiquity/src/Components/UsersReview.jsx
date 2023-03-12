@@ -159,7 +159,6 @@ function UsersReview() {
           <div class="card  col-lg-3 mt-3 col-12 me-4">
             <div class="card-content">
               <div class="card-body">
-                {" "}
                 <img
                   alt="image5"
                   class="img"
@@ -169,22 +168,19 @@ function UsersReview() {
                 <div class="card-title"> We're Free </div>
                 <div class="card-subtitle">
                   <p>
-                    {" "}
                     <small class="text-muted">
                       We spent thousands of hours creating on algorithm that
                       does this for you in seconds. We collect a small fee from
                       the professional after they meet your
-                    </small>{" "}
+                    </small>
                   </p>
                 </div>
               </div>
             </div>
           </div>
-
           <div class="card  col-lg-3 mt-3 col-12  me-4 ">
             <div class="card-content">
               <div class="card-body">
-                {" "}
                 <img
                   alt="image6"
                   class="img"
@@ -193,12 +189,10 @@ function UsersReview() {
                 <div class="card-title"> We're Unbiased </div>
                 <div class="card-subtitle">
                   <p>
-                    {" "}
                     <small class="text-muted">
-                      {" "}
                       We don't accept ads from anyone. We use actual data to
-                      match you who the best person for each job{" "}
-                    </small>{" "}
+                      match you who the best person for each job
+                    </small>
                   </p>
                 </div>
               </div>
@@ -207,7 +201,6 @@ function UsersReview() {
           <div class="card  col-lg-3 mt-3 col-12  me-4">
             <div class="card-content">
               <div class="card-body">
-                {" "}
                 <img
                   alt="image7"
                   class="img rck"
@@ -216,13 +209,12 @@ function UsersReview() {
                 <div class="card-title"> We Guide you </div>
                 <div class="card-subtitle">
                   <p>
-                    {" "}
                     <small class="text-muted">
                       Buying or selling a home is often the largest transaction
                       anyone does in their life. we guide you through the
                       process so that you can be confident in reaching your
                       dream outcome.
-                    </small>{" "}
+                    </small>
                   </p>
                 </div>
               </div>
@@ -233,7 +225,7 @@ function UsersReview() {
           <p class="chk">
             <small class="">Still not sure?</small>
           </p>
-          <div class="btn btn-primary">Give it a Try</div>
+          <div class="btn btn-outline-dark mt-auto ">Give it a Try</div>
         </div>
       </div>
     </div>

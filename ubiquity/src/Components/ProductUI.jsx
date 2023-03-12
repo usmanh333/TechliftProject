@@ -86,7 +86,6 @@ const ProductUI = () => {
                         className="btn btn-outline-dark mt-auto"
                         to={`/serviceDetails/${val._id}`}
                       >
-                        {" "}
                         See More Details
                       </Link>
                     </button>

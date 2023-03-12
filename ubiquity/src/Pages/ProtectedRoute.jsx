@@ -4,7 +4,7 @@ import Home from "./Home";
 
 const ProtectedRoute = () => {
   let auth = localStorage.getItem('secretKey');
-  return auth ? <Outlet/> : <> <Home/> </>
+  return auth ? <Outlet/> : <> <Home/> </> // Using Outlet for protecting the routes
 };
 
 export default ProtectedRoute;
