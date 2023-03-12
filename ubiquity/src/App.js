@@ -13,8 +13,9 @@ import UpdateServiceForm from './Pages/UpdateServiceForm';
 import ServicesDetails from './Pages/ServicesDetails';
 import Footer from './Components/Footer';
 import PageNotFound from './Components/PageNotFound';
+import ProtectedRoute from './Pages/ProtectedRoute';
 
-
+ 
 function App() {
   return (
     <div className="App">
@@ -22,12 +23,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/> 
         <Route path="/about" element={<AboutPage/>}/>
-        <Route path="/services" element={<Services/>}/>
-        <Route path="/servicesAll/" element={<AllServices/>}/>
-        <Route path="/services/:id" element={<ServiceByCategory/>}/>
-        <Route path="/postAService" element={<PostAServiceForm/>}/>
-        <Route path="/updateService/:id" element={<UpdateServiceForm />}/>
-        <Route path="/serviceDetails/:id" element={<ServicesDetails />}/>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/services" element={<Services/>}/>
+          <Route path="/servicesAll/" element={<AllServices/>}/>
+          <Route path="/postAService" element={<PostAServiceForm/>}/>
+          <Route path="/updateService/:id" element={<UpdateServiceForm />}/>
+          <Route path="/serviceDetails/:id" element={<ServicesDetails />}/>
+          <Route path="/services/:id" element={<ServiceByCategory/>}/>
+        </Route>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path='*' element={<PageNotFound/>} />

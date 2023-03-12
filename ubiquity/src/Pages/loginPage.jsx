@@ -1,5 +1,5 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/loginPage.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -25,7 +25,7 @@ const LoginPage = () => {
           backgroundImage:
             "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))",
           paddingBottom: "200px",
-        }}
+        }} 
       >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -56,6 +56,8 @@ const LoginPage = () => {
                               values
                             );
                             navigate("/servicesAll");
+                            localStorage.setItem('secretKey',JSON.stringify(values)) //setting key and user in local storage
+                            console.log(values)
                           } catch (error) {
                             console.error(error);
                             setError("Invalid email address or password");  // setting the state and displaying the error

@@ -1,7 +1,15 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function NavBar() {
+  // useEffect(()=>{
+    // let navigate = useNavigate()
+  //   let auth = localStorage.getItem('secretKey')
+  //   if(auth) {
+  //     navigate('/')
+  //   }
+  // })
+  let auth = localStorage.getItem("secretKey"); // giving authorization to user by getting the key 
   return (
     // Navigation bar Starts from here
     <nav className="navbar navbar-expand-lg bg-dark text-light ps-5 pe-5 ">
@@ -35,7 +43,7 @@ function NavBar() {
                 Home
               </NavLink>
             </li>
-            
+
             <li className="nav-item dropdown">
               <Link
                 to=""
@@ -64,14 +72,16 @@ function NavBar() {
                     View All Services
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/postAService"
-                    className="dropdown-item text-light bg-dark"
-                  >
-                    Post A Service
-                  </NavLink>
-                </li>
+                {auth && (
+                  <li>
+                    <NavLink
+                      to="/postAService"
+                      className="dropdown-item text-light bg-dark"
+                    >
+                      Post A Service
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </li>
             <li className="nav-item">
@@ -79,16 +89,42 @@ function NavBar() {
                 About
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink to="/login" className="nav-link text-light">
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/register" className="nav-link text-light">
-                Register
-              </NavLink>
-            </li>
+            {/*  Conditionally rendering if the user login show logount button else show login register   */}
+            {!auth && (
+              <>
+                <li className="nav-item">
+                  <NavLink to="/login" className="nav-link text-light">
+                    Login
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/register" className="nav-link text-light">
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            )}
+            {auth && (
+              <>
+                <li className="nav-item">
+                  <NavLink
+                    to="/profile"
+                    className="nav-link text-light"
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    onClick={() => localStorage.clear()}
+                    className="nav-link text-light"
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
           <form className="d-flex" role="search">
             <input
