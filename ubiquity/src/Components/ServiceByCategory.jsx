@@ -67,7 +67,7 @@ const ServiceByCategory = () => {
             <MDBRow className="mt-4">
               {filteredServices.length === 0 ? (
                 <>
-                  <h1>No Services Posted yet in {category}</h1>{" "}
+                  <h1>No Services Posted yet in {category}</h1>
                 </>
               ) : (
                 filteredServices.map((service) => {
@@ -112,7 +112,7 @@ const ServiceByCategory = () => {
                                       {service.selectCategory}
                                     </span>
                                     <span className="badge bg-danger ms-2">
-                                      {service.selectDistrict},{" "}
+                                      {service.selectDistrict},
                                       {service.selectArea}
                                     </span>
                                   </h5>
@@ -173,98 +173,6 @@ const ServiceByCategory = () => {
         </div>
       </div>
     </>
-
-    // <>
-    //   <MDBContainer
-    //     fluid
-    //     className="text-center"
-    //     style={{
-    //       backgroundImage:
-    //         "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))",
-    //       scrollBehavior: "smooth",
-    //     }}
-    //   >
-    //     <div className="d-flex flex-wrap justify-content-evenly">
-    //       <div className="">
-    //         <div className="headingFifth">
-    //           <h1>Services Filtered By Category</h1>
-    //           <h2>
-    //             Services in {category} ({filteredServices.length})
-    //           </h2>
-    //         </div>
-    //         <hr />
-    //         <MDBRow className="mt-4">
-    // {filteredServices.length === 0 ? (
-    //   <>
-    //     <h1>No services found in {category}</h1>{" "}
-    //   </>
-    // ) : (
-    //   filteredServices.map((service) => {
-    //               return (
-    //                 <MDBCol md="12" lg="3" className="mb-4 mt-2">
-    //                   <div className="">
-    //                     <MDBCard
-    //                       className="makeFlex"
-    //                       style={{ height: "720px", width: "100%" }}
-    //                     >
-    //                       <MDBRipple
-    //                         rippleColor="light"
-    //                         rippleTag="div"
-    //                         className="bg-image rounded hover-zoom"
-    //                       >
-    //                         <MDBCardImage
-    //                           src={`http://localhost:4000/cardsdata/uploads/${service.image}`}
-    //                           fluid
-    //                           className="w-100"
-    //                           style={{ borderRadius: "10px", marginTop: "0px" }}
-    //                         />
-    //                         <div className="mask">
-    //                           <div className="d-flex justify-content-start align-items-end h-100">
-    //                             <h5>
-    //                               <span className="badge bg-primary ms-2">
-    //                                 New
-    //                               </span>
-    //                               <span className="badge bg-success ms-2">
-    //                                 {service.selectCategory}
-    //                               </span>
-    //                               <span className="badge bg-danger ms-2">
-    //                                 {service.selectDistrict},{" "}
-    //                                 {service.selectArea}
-    //                               </span>
-    //                             </h5>
-    //                           </div>
-    //                         </div>
-    //                         <div className="hover-overlay">
-    //                           <div
-    //                             className="mask"
-    //                             style={{
-    //                               backgroundColor: "rgba(251, 251, 251, 0.15)",
-    //                             }}
-    //                           ></div>
-    //                         </div>
-    //                       </MDBRipple>
-    //                       <MDBCardBody>
-    //                         <a className="text-reset">
-    //                           <h5 className="card-title mb-3">
-    //                             <strong>Designation :</strong> {service.name}
-    //                           </h5>
-    //                         </a>
-    //                         <h6 className="mb-3">
-    //                           Description : {service.desc.substring(0, 50)}
-    //                           {service.desc.length > 50 ? "..." : ""}
-    //                         </h6>
-    //                       </MDBCardBody>
-    //                     </MDBCard>
-    //                   </div>
-    //                 </MDBCol>
-    //               );
-    //             })
-    //           )}
-    //         </MDBRow>
-    //       </div>
-    //     </div>
-    //   </MDBContainer>
-    // </>
   );
 };
 

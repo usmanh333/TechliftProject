@@ -24,8 +24,8 @@ const ServicesDetails = () => {
     }
   };
 
-  const category = card.selectCategory;
-  // console.log(category)
+  const category = card.selectCategory; //saving the category here
+  let sameId = card._id; //saving the ID here
 
   // Related Services
   const [showInput, setShowInput] = useState([]);
@@ -35,10 +35,13 @@ const ServicesDetails = () => {
     setShowInput(user);
   };
 
-  const filteredServices = showInput.filter(
-    (service) => service.selectCategory == category
+  let filteredServices = showInput.filter(
+    (service) => service.selectCategory == category //filtering the category data first
   );
-  // console.log(filteredServices)
+  let res = filteredServices.filter(
+    (duplicateID) => duplicateID._id !== sameId
+  ); //  then filtering the data by ID which is not same as displaying above
+
   useEffect(() => {
     userClick();
     getUserDetail();
@@ -79,8 +82,10 @@ const ServicesDetails = () => {
                     {moment(card.date).format("MMMM Do YYYY, h:mm:ss a")}
                   </div>
                   <div className="small mb-1 text-black">
-                    
-                    <p><strong>Category : </strong>{card.selectCategory}</p>
+                    <p>
+                      <strong>Category : </strong>
+                      {card.selectCategory}
+                    </p>
                   </div>
                   <h1 className="display-5 fw-bolder">{card.name}</h1>
                   <div className="fs-5 mb-5">
@@ -144,10 +149,12 @@ const ServicesDetails = () => {
             <div className="container px-4 px-lg-5 mt-5 fixingBottom">
               <h2 className="fw-bolder mb-4">Other Related Services</h2>
               <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {showInput._id == card._id ? (
-                  <h1>No Related Services Found...!!!</h1>
+                {res.length === 0 ? (
+                  <>
+                    <h2>No Related Services Found...!!!</h2>
+                  </>
                 ) : (
-                  filteredServices.slice(0, 4).map((val, ind) => {
+                  res.slice(0, 4).map((val, ind) => {
                     return (
                       <div className="col mb-5 " key={ind}>
                         <div className="card h-100">
