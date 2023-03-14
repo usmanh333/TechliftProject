@@ -51,7 +51,7 @@ const CategoriesUiData = [
   {
     id: 8,
     name: "SEO (Search Engin Optimization) Services",
-    Category: "SEo",
+    Category: "SEO",
     image: "../images/Portfolio08.png",
     desc: "Need An SEO Expert ?",
   },
@@ -118,13 +118,13 @@ const CategoriesUiData = [
     image: "../images/Portfolio17.jfif",
     desc: "Looking for Fruit Shops ?",
   },
-  {
-    id: 18,
-    name: "Digital Printing Services",
-    Category: "Electrician",
-    image: "../images/Portfolio19.png",
-    desc: "Need A Digital Printing Services ?",
-  },
+  // {
+  //   id: 18,
+  //   name: "Digital Printing Services",
+  //   Category: "Electrician",
+  //   image: "../images/Portfolio19.png",
+  //   desc: "Need A Digital Printing Services ?",
+  // },
   {
     id: 19,
     name: "Labour Services",
@@ -150,6 +150,13 @@ const CategoriesUiData = [
     id: 22,
     name: "Web Developers",
     Category: "Web Developers",
+    image: "../images/Portfolio22.jpg",
+    desc: "Need A Web Developers ?",
+  },
+  {
+    id: 23,
+    name: "Others",
+    Category: "Other",
     image: "../images/Portfolio22.jpg",
     desc: "Need A Web Developers ?",
   },

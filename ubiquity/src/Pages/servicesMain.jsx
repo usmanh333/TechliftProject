@@ -76,9 +76,8 @@ const ServicesMain = () => {
                         <h5 className="card-title text mb-3">{item.desc}</h5>
                       </Link>
                       <Link to={`/services/${item.id}`} className="text-reset">
-                        <button className="btn btn-danger">
-                          {" "}
-                          View Services{" "}
+                        <button className="btn btn-outline-dark mt-auto p-2">
+                          View Services
                         </button>
                       </Link>
                     </MDBCardBody>

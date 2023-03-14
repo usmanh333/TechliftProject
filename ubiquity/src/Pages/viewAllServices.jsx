@@ -147,19 +147,3 @@ const ViewAllServices = () => {
 };
 
 export default ViewAllServices;
-
-// <div key={ind}>
-//               <li>{val.name}</li>
-//               <li>{val.desc}</li>
-//               <li>{val.price}</li>
-//               <li>{val.number}</li>
-//               <li>{val.selectDistrict}</li>
-//               <li>{val.selectArea}</li>
-//               <li>{moment(val.date).format("MMMM Do YYYY, h:mm:ss a")}</li>
-//               <li>{val.checkbox}</li>
-//               <li>{val.selectCategory}</li>
-//               <li>
-//                 <img
-//                   src={`http://localhost:4000/cardsdata/uploads/${val.image}`}
-//                 />
-//               </li>

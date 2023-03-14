@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = ({loggedIn, setLoggedIn}) => {
-  // const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in

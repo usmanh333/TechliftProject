@@ -6,14 +6,14 @@ import moment from "moment";
 
 const ServicesDetails = () => {
   const [card, setCard] = useState({});
-  let nevigate = useNavigate()
+  let nevigate = useNavigate();
   const { id } = useParams();
 
   // Related Cards Navigation
-  const Clicked =(url)=>{
+  const Clicked = (url) => {
     nevigate(url);
     window.scrollTo(0, 0);
-  }
+  };
 
   const getUserDetail = async () => {
     try {
@@ -23,19 +23,27 @@ const ServicesDetails = () => {
       console.log(error);
     }
   };
+
+  const category = card.selectCategory;
+  // console.log(category)
+
   // Related Services
   const [showInput, setShowInput] = useState([]);
   const userClick = async () => {
     const result = await fetch("http://localhost:4000/cardsdata"); // getting data from database
     const user = await result.json();
     setShowInput(user);
-    
   };
+
+  const filteredServices = showInput.filter(
+    (service) => service.selectCategory == category
+  );
+  // console.log(filteredServices)
   useEffect(() => {
     userClick();
     getUserDetail();
   }, [showInput]);
-  
+
   // getting data ends here
 
   return (
@@ -70,23 +78,27 @@ const ServicesDetails = () => {
                     <strong>Service Posted : </strong>
                     {moment(card.date).format("MMMM Do YYYY, h:mm:ss a")}
                   </div>
+                  <div className="small mb-1 text-black">
+                    
+                    <p><strong>Category : </strong>{card.selectCategory}</p>
+                  </div>
                   <h1 className="display-5 fw-bolder">{card.name}</h1>
                   <div className="fs-5 mb-5">
                     <span className="">
-                      <strong>Area :</strong> {card.selectDistrict},{" "}
+                      <strong>Area :</strong> {card.selectDistrict},
                     </span>
                     <span>{card.selectArea}</span>
                   </div>
                   <p className="lead">
-                    <span style={{ fontWeight: "700" }}>Description :</span>{" "}
+                    <span style={{ fontWeight: "700" }}>Description :</span>
                     {card.desc}
                   </p>
                   <p className="lead">
-                    <span style={{ fontWeight: "700" }}>Price Rate :</span>{" "}
+                    <span style={{ fontWeight: "700" }}>Price Rate :</span>
                     {card.price}
                   </p>
                   <p className="lead">
-                    <span style={{ fontWeight: "700" }}>Phone Number :</span>{" "}
+                    <span style={{ fontWeight: "700" }}>Phone Number :</span>
                     {card.number && card.number.toString().startsWith("9")
                       ? "+" + card.number
                       : card.number}
@@ -132,63 +144,73 @@ const ServicesDetails = () => {
             <div className="container px-4 px-lg-5 mt-5 fixingBottom">
               <h2 className="fw-bolder mb-4">Other Related Services</h2>
               <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {showInput.slice(0, 4).map((val, ind) => {
-                  return (
-                    <div className="col mb-5 " key={ind}>
-                      <div className="card h-100">
-                        {/* Sale badge*/}
-                        <div
-                          className="badge bg-dark text-white position-absolute"
-                          style={{ top: "0.5rem", right: "0.5rem" }}
-                        >
-                          Services
-                        </div>
-                        {/* Product image*/}
-                        <img
-                          className="card-img-top"
-                          src={`http://localhost:4000/cardsdata/uploads/${val.image}`}
-                          alt="ImageBanner"
-                        />
-                        {/* Product details*/}
-                        <div className="card-body p-4">
-                          <div className="text-center">
-                            {/* Product name*/}
-                            <h5 className="fw-bolder"> {val.name} </h5>
-                            {/* Product reviews*/}
-                            <div className="d-flex justify-content-center small text-warning mb-2">
-                              <div className="bi-star-fill" />
-                              <div className="bi-star-fill" />
-                              <div className="bi-star-fill" />
-                              <div className="bi-star-fill" />
-                              <div className="bi-star-fill" />
-                            </div>
-                            {/* Product price*/}
-                            <span className="text-muted ">
-                              {val.selectDistrict},
-                            </span>
-                            {val.selectArea}
+                {showInput._id == card._id ? (
+                  <h1>No Related Services Found...!!!</h1>
+                ) : (
+                  filteredServices.slice(0, 4).map((val, ind) => {
+                    return (
+                      <div className="col mb-5 " key={ind}>
+                        <div className="card h-100">
+                          {/* Sale badge*/}
+                          <div
+                            className="badge bg-dark text-white position-absolute"
+                            style={{ top: "0.5rem", right: "0.5rem" }}
+                          >
+                            Services
                           </div>
-                        </div>
-                        {/* Product actions*/}
-                        <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                          <div className="text-center">
-                            <button className="btn btn-outline-dark mt-auto" onClick={()=>Clicked(`/serviceDetails/${val._id}`)}>
-                              {/* <Link
+                          {/* Product image*/}
+                          <img
+                            className="card-img-top"
+                            src={`http://localhost:4000/cardsdata/uploads/${val.image}`}
+                            alt="ImageBanner"
+                          />
+                          {/* Product details*/}
+                          <div className="card-body p-4">
+                            <div className="text-center">
+                              {/* Product name*/}
+                              <h5 className="fw-bolder"> {val.name} </h5>
+                              {/* Product reviews*/}
+                              <div className="d-flex justify-content-center small text-warning mb-2">
+                                <div className="bi-star-fill" />
+                                <div className="bi-star-fill" />
+                                <div className="bi-star-fill" />
+                                <div className="bi-star-fill" />
+                                <div className="bi-star-fill" />
+                              </div>
+                              {/* Product price*/}
+                              <span className="text-muted ">
+                                {val.selectDistrict},
+                              </span>
+                              {val.selectArea}
+                            </div>
+                          </div>
+                          {/* Product actions*/}
+                          <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div className="text-center">
+                              <button
+                                className="btn btn-outline-dark mt-auto"
+                                onClick={() =>
+                                  Clicked(`/serviceDetails/${val._id}`)
+                                }
+                              >
+                                {/* <Link
                                 className="btn btn-outline-dark mt-auto"
                                 to={`/serviceDetails/${val._id}`} //Error not Rendering the Service
                               > */}
                                 View More Details
-                              {/* </Link> */}
-                            </button>
+                                {/* </Link> */}
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                )}
               </div>
             </div>
           </section>
+          {/* Related items section Ends here*/}
         </div>
         {/* <!-- Product actions--> */}
       </div>
