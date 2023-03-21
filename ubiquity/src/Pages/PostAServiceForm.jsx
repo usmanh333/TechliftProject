@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const PostAServiceForm = () => {
   // Validation function Starts
@@ -95,16 +97,23 @@ const PostAServiceForm = () => {
 
   return (
     <div className="container w-50 mt-5 fixingBottom">
+      <ToastContainer/>
       <Formik
         validationSchema={formValidation}
         initialValues={initialValues}
         onSubmit={async (values) => {
           try {
-            await Axios.post("http://localhost:4000/cards", values, {
+            let res = await Axios.post("http://localhost:4000/cards", values, {
               headers: { "Content-Type": "multipart/form-data" },
             });
+            toast.success(`${res.data.msg}`, {
+              position: toast.POSITION.TOP_CENTER
+            });            
             navigate("/servicesAll/");
             window.scrollTo(0, 0);
+            console.log(res.data)
+            console.log(res.data.msg)
+            
           } catch (error) {
             console.error(error);
           }
@@ -295,6 +304,7 @@ const PostAServiceForm = () => {
             <button type="submit" class="btn btn-primary btn-block mb-4">
               Post Service Now
             </button>
+            
           </Form>
         )}
       </Formik>

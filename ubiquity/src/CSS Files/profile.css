@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.profile-main{
+    display: flex;
+  justify-content: center; /* centers horizontally */
+  align-items: center; /* centers vertically */
+  margin: auto;
+  background-color: aliceblue;
+  width: 50vw;
+  /* text-align: center; */
+  padding: 200px;
+  border-radius: 10px;
+}
+.profile-image{
+    width: 20vw;
+    border-radius: 50px;
+    padding: 30px;
+}

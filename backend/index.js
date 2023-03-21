@@ -3,14 +3,13 @@ let app = express();
 require('./Database/config') // require DB
 let ServiceRoutes = require('./Routes/PostService') // require services routes
 let RegisterRoute = require('./Routes/Register')
-let LoginRoute = require('./Routes/Login')
 let color = require('colors');
 require('dotenv').config(); //To Create Environment variable
 const PORT = process.env.PORT || 5000
 
 app.use(ServiceRoutes) // making services routes
 app.use(RegisterRoute) // register routes
-app.use(LoginRoute) // login routes
+
 
 try {
     app.listen(PORT, 

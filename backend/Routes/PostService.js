@@ -41,47 +41,55 @@ router.get('/cardsdata/uploads/:imageName', (req, res) => {
 
 // getting all cards posts
 router.get('/cardsdata', async(req, res) =>{
-    const allCards = await post_a_service.find()
-    res.json(allCards)
+    try {
+      const allCards = await post_a_service.find()
+    res.status(200).json(allCards)
+    } catch (error) {
+      res.status(500).json({ msg: "INTERNAL SERVER ERROR" , error: error });
+    }
 })
 
 
 // posting cards 
 router.post('/cards', upload.single('image'), async (req, res) => {
-  const { name, desc, price, number, selectDistrict, selectArea ,checkbox,selectCategory } = req.body;
-  // checking file
-  if (!req.file) {
-    res.status(400).json({ msg: "BAD REQUEST" });
-    return; 
-  }
-  const cards = new post_a_service({
-    name: name,
-    desc: desc,
-    image: req.file.filename,
-    price: price,
-    number: number,
-    selectDistrict: selectDistrict,
-    selectArea: selectArea,
-    selectCategory :selectCategory,
-    checkbox : checkbox,
-    date: new Date().toISOString()
-  });
-  console.log(cards)
   try {
+    const { name, desc, price, number, selectDistrict, selectArea ,checkbox,selectCategory } = req.body;
+    // checking file
+    if (!req.file) {
+      res.status(400).json({ msg: "BAD REQUEST" });
+      return; 
+    }
+    const cards = new post_a_service({
+      name: name,
+      desc: desc,
+      image: req.file.filename,
+      price: price,
+      number: number,
+      selectDistrict: selectDistrict,
+      selectArea: selectArea,
+      selectCategory :selectCategory,
+      checkbox : checkbox,
+      date: new Date().toISOString()
+    });
+    console.log(cards)
     await cards.save();
-    res.json(cards);
+    res.status(200).json({msg:"Post Created Successfully",cards});
     console.log(cards)
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: "INTERNAL SERVER ERROR" });
+    res.status(500).json({ msg: "INTERNAL SERVER ERROR" , error: error });
   }
 });
 
 
 // getting cards post by a ID
 router.get('/cardsdata/:id', async (req, res)=>{
-    const postById = await post_a_service.findById(req.params.id)
-    res.json(postById)
+    try {
+      const postById = await post_a_service.findById(req.params.id)
+    res.status(200).json(postById)
+    } catch (error) {
+      res.status(500).json({ msg: "INTERNAL SERVER ERROR" , error: error });
+    }
 })
 
 

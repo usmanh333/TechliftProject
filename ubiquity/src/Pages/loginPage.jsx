@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/loginPage.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
+import { toast, ToastContainer } from 'react-toastify';
+
 
 const LoginPage = ({ setLoggedIn }) => {
   const [error, setError] = useState(null); // Getting the errors if username or password is incorrect
@@ -51,14 +53,23 @@ const LoginPage = ({ setLoggedIn }) => {
                         initialValues={initialValue}
                         onSubmit={async (values, { setSubmitting }) => {
                           try {
-                            await Axios.post(
+                            let res = await Axios.post(
                               "http://localhost:4000/login",
                               values
                             );
                             navigate("/servicesAll");
                             localStorage.setItem('secretKey',JSON.stringify(values)) //setting key and user in local storage
                             setLoggedIn(true); // update the loggedIn state variable
-                            console.log(values)
+                            {res ? (toast(`${res.data.status}`, {
+                              position: toast.POSITION.TOP_RIGHT
+                            }))
+                          :
+                          (toast(`${error}`, {
+                            position: toast.POSITION.TOP_RIGHT
+                          }))
+                          }
+                            console.log(res.data.status)
+                            console.log(res.data)
                           } catch (error) {
                             console.error(error);
                             setError("Invalid email address or password");  // setting the state and displaying the error
@@ -120,7 +131,8 @@ const LoginPage = ({ setLoggedIn }) => {
                               </a>
                             </div>
                           </Form>
-                        )}
+                        )
+                      }
                       </Formik>
 
                       <div class="d-flex align-items-center justify-content-center pb-4">
@@ -129,7 +141,7 @@ const LoginPage = ({ setLoggedIn }) => {
                           to={"/register"}
                           type="button"
                           class="btn btn-outline-danger"
-                        >
+                          >
                           Create new Account
                         </Link>
                       </div>
@@ -150,6 +162,7 @@ const LoginPage = ({ setLoggedIn }) => {
           </div>
         </div>
       </section>
+      <ToastContainer/>
     </div>
   );
 };

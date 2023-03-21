@@ -10,6 +10,8 @@ import {
 } from "mdb-react-ui-kit";
 import "../CSS Files/ProductUI.css";
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ViewAllServices = () => {
   const [showInput, setShowInput] = useState([]);
@@ -141,6 +143,7 @@ const ViewAllServices = () => {
             </MDBRow>
           </MDBContainer>
         </div>
+        <ToastContainer/>
       </div>
     </>
   );

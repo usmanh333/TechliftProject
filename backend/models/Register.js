@@ -7,6 +7,7 @@ const registerShema = new mongoose.Schema({
     email: {
         type : String,
         require:true,
+        lowercase: true,
     },
     phoneNumber: {
         type : Number,
@@ -20,6 +21,6 @@ const registerShema = new mongoose.Schema({
         type : String,
         require:true,
     }
-})
+},{timestamps: true})
 
 module.exports = mongoose.model('register', registerShema)

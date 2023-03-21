@@ -4,6 +4,7 @@ import "../CSS Files/Register.css";
 import Axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
+import { toast } from 'react-toastify';
 
 const Register = () => {
   let navigate = useNavigate();
@@ -78,6 +79,10 @@ const Register = () => {
                                 headers: { "Content-Type": "application/json" },
                               }
                             );
+                            toast.success(`${res.data.status}`, {
+                              position: toast.POSITION.TOP_CENTER
+                            });
+                            console.log(res.data.status)
                             console.log(res.data.error)
                             if (res.data.error === "Already registered") {  // Here we are comparing ours error from backend if its matches then the return part executed else navigate
                               return setErrors({ email: "This Email is Already Been Registered" });

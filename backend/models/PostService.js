@@ -36,43 +36,8 @@ const userShema = new mongoose.Schema({
         type: String,
         default: Date.now
     }
-
-})
+},{timestamps: true})
 
 
 
 module.exports = mongoose.model('post_a_service',userShema)
-
-
-
-
-
-
-// ------------------------------------------------------
-
-// Practice Part-2 
-
-// const mongoose = require('mongoose')
-
-// const userShema = new mongoose.Schema({
-//     name : String,
-//     email: String,
-//     password: String,
-// })
-
-
-
-
-
-// module.exports = mongoose.model('users',userShema)
-
-
-// Practice Part-1
-
-// const mongoose = require('mongoose');
-
-// const userShema =  new mongoose.Schema({
-//     name: String,
-// })
-
-// module.exports = mongoose.model('User',userShema)

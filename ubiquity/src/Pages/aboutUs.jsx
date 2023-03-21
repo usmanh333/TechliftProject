@@ -1,8 +1,7 @@
 import React from "react";
 import "../CSS Files/AboutUs.css";
-import Footer from "../Components/Footer";
 
-function aboutUs() {
+const  AboutUs = ()=> {
   return (
     <div className="aboutMain">
       <div>
@@ -44,4 +43,4 @@ function aboutUs() {
   );
 }
 
-export default aboutUs;
+export default AboutUs;

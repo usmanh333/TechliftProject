@@ -3,10 +3,10 @@
 }
 
 .aboutImage{
-    width: 100% !important;
+    width: 100vw !important;
     border-radius: 0 !important;
     margin-top: 0 !important;
-    width: 100% !important;
+    width: 100vw !important;
     opacity: 0.9;
 }
 .aboutField{
@@ -18,13 +18,13 @@
     background-color: azure;
     border: 1px solid transparent;
     border-radius: 25px;
-    width: 50%;
+    width: 50vw;
 }
 .paraAbout{
     text-align: left !important;
 }
 .aboutFieldTwo{
-    width: 60%;
+    width: 60vw;
     padding: 60px 120px 120px 120px;
     background-color: azure;
     border: 1px solid transparent;
