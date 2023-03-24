@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "../CSS Files/loginPage.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
-import { toast, ToastContainer } from 'react-toastify';
-
+import { toast, ToastContainer } from "react-toastify";
+import Cookies from 'js-cookie';
 
 const LoginPage = ({ setLoggedIn }) => {
   const [error, setError] = useState(null); // Getting the errors if username or password is incorrect
@@ -27,7 +27,7 @@ const LoginPage = ({ setLoggedIn }) => {
           backgroundImage:
             "-webkit-gradient(linear,left top,right top,from(#fc4a1a),to(#f7b733))",
           paddingBottom: "200px",
-        }} 
+        }}
       >
         <div class="container py-5 h-100 l">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -57,22 +57,27 @@ const LoginPage = ({ setLoggedIn }) => {
                               "http://localhost:4000/login",
                               values
                             );
+                            console.log(res);
+                            console.log(res.data.msg);
+                            // console.log(JSON.stringify(res.data.token))
+                            {
+                              res.data
+                                ? toast(`${res.data.msg}`, {
+                                    position: toast.POSITION.TOP_RIGHT,
+                                  })
+                                : toast(`${error}`, {
+                                    position: toast.POSITION.TOP_RIGHT,
+                                  }); 
+                            }
+                            let token = res.data.token
+                            console.log(token);
+                            // localStorage.setItem('secretKey',token,JSON.stringify(values)) //setting key and user in local storage
+                            Cookies.set('token', token, { expires: 7 }); //setting key and user in local storage/cookies
                             navigate("/servicesAll");
-                            localStorage.setItem('secretKey',JSON.stringify(values)) //setting key and user in local storage
                             setLoggedIn(true); // update the loggedIn state variable
-                            {res ? (toast(`${res.data.status}`, {
-                              position: toast.POSITION.TOP_RIGHT
-                            }))
-                          :
-                          (toast(`${error}`, {
-                            position: toast.POSITION.TOP_RIGHT
-                          }))
-                          }
-                            console.log(res.data.status)
-                            console.log(res.data)
                           } catch (error) {
                             console.error(error);
-                            setError("Invalid email address or password");  // setting the state and displaying the error
+                            setError("Invalid email address or password"); // setting the state and displaying the error
                           }
                           console.log(values);
                           setSubmitting(false); // its a function coming from actions which is destructure above it can be actions.setSubmitting
@@ -131,8 +136,7 @@ const LoginPage = ({ setLoggedIn }) => {
                               </a>
                             </div>
                           </Form>
-                        )
-                      }
+                        )}
                       </Formik>
 
                       <div class="d-flex align-items-center justify-content-center pb-4">
@@ -141,7 +145,7 @@ const LoginPage = ({ setLoggedIn }) => {
                           to={"/register"}
                           type="button"
                           class="btn btn-outline-danger"
-                          >
+                        >
                           Create new Account
                         </Link>
                       </div>
@@ -162,7 +166,7 @@ const LoginPage = ({ setLoggedIn }) => {
           </div>
         </div>
       </section>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };

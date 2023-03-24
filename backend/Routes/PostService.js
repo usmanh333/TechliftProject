@@ -9,6 +9,7 @@ router.use(bodyParser.urlencoded(
 router.use(bodyParser.json());
 router.use(express.json())
 const post_a_service = require('../models/PostService') // Schema
+const jwt = require('jsonwebtoken')
 
 
 const multer = require('multer');
@@ -38,6 +39,30 @@ router.get('/cardsdata/uploads/:imageName', (req, res) => {
   res.sendFile(imagePath, { root: __dirname });
 });
 
+// Getting token to verify the route
+// const authMiddileware = async (req, res, next) => { 
+//   try {
+//     const authHeader = req.headers.authorization;
+//     console.log("authHeader:", authHeader);
+//     if (!authHeader) {
+//       return res.status(401).json({ error: "invalid authorization header" });
+//     }
+//     const token = authHeader.split(" ")[1];
+//     console.log("token:", token);
+//     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+//       if (err) {
+//         return res.status(401).json({ error: "invalid Token" });
+//       }
+//       req._id = decodedToken;
+//       next();
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "server error" });
+//   }
+// };
+
+
 
 // getting all cards posts
 router.get('/cardsdata', async(req, res) =>{
@@ -53,7 +78,7 @@ router.get('/cardsdata', async(req, res) =>{
 // posting cards 
 router.post('/cards', upload.single('image'), async (req, res) => {
   try {
-    const { name, desc, price, number, selectDistrict, selectArea ,checkbox,selectCategory } = req.body;
+    const { name, desc, price, number, selectDistrict, selectArea, checkbox, selectCategory } = req.body;
     // checking file
     if (!req.file) {
       res.status(400).json({ msg: "BAD REQUEST" });
@@ -69,7 +94,7 @@ router.post('/cards', upload.single('image'), async (req, res) => {
       selectArea: selectArea,
       selectCategory :selectCategory,
       checkbox : checkbox,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     });
     console.log(cards)
     await cards.save();

@@ -35,7 +35,14 @@ const userShema = new mongoose.Schema({
     date: {
         type: String,
         default: Date.now
-    }
+    },
+    isAdmin: {
+        type : Boolean,
+        default : false,
+    },
+    // userID : {
+    //     type: mongoose.Schema.Types.ObjectId, ref: 'login'
+    // }
 },{timestamps: true})
 
 

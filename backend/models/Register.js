@@ -10,7 +10,7 @@ const registerShema = new mongoose.Schema({
         lowercase: true,
     },
     phoneNumber: {
-        type : Number,
+        type : Number, 
         require:true,
     },
     password : {
@@ -20,6 +20,10 @@ const registerShema = new mongoose.Schema({
     retypePassword: {
         type : String,
         require:true,
+    },
+    isAdmin:{
+        type: Boolean,
+        default: false,
     }
 },{timestamps: true})
 

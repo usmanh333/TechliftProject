@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 .profile-main{
-    display: flex;
+  display: flex;
   justify-content: center; /* centers horizontally */
   align-items: center; /* centers vertically */
   margin: auto;
@@ -18,4 +18,11 @@
     width: 20vw;
     border-radius: 50px;
     padding: 30px;
+}
+.positionP{
+    position: relative;
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center; /* centers vertically */
+    bottom: -150px;
 }

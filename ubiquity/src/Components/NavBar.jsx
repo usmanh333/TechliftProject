@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const NavBar = ({loggedIn, setLoggedIn}) => {
 
-  useEffect(() => {
+  useEffect(() => { 
     // Check if user is logged in
-    let auth = localStorage.getItem("secretKey"); // giving authorization to user by getting the key 
+    let auth = Cookies.get("token"); // giving authorization to user by getting the key 
     if (auth) {
       setLoggedIn(true);
     } else {
@@ -13,8 +14,8 @@ const NavBar = ({loggedIn, setLoggedIn}) => {
     }
   }, []);
   const handleLogout = () => {
-    // Clear local storage and set loggedIn to false
-    localStorage.clear();
+    // Clear local storage/cookies and set loggedIn to false
+    Cookies.remove("token");
     setLoggedIn(false);
   };
   

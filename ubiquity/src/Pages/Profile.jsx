@@ -1,25 +1,43 @@
 import React, { useEffect, useState } from "react";
-import '../CSS Files/profile.css'
-import axios from 'axios'
+import "../CSS Files/profile.css";
+import axios from "axios";
+import Cookies from "js-cookie"; // seting token in cookie
 
-const Profile = ({setLoggedIn}) => {
-  const [user, setUser]= useState()
+const Profile = () => {
+  const [userData, setUserData] = useState({});
+  const [ID, setID] = useState([]);
 
-const loginUser = async (email, password) => {
-  try {
-    const response = await axios.get('http://localhost:4000/login', { email, password });
-    console.log(response.data);
-    // handle successful login here
-  } catch (error) {
-    console.error(error);
-    // handle login error here
-  }
-};
+  const fetchUserProfile = async () => {
+    const token = Cookies.get("token"); //  get the token from cookies
+    const header = {
+      headers: { Authorization: `Bearer ${token}` }, // matching headers with frontend 
+    };
+    try {
+      const response = await axios.get("http://localhost:4000/profile", header); // getting login user details 
+      console.log(response);
+      setUserData(response.data);
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
+  };
 
-  useEffect(()=>{
-    loginUser()
-  },[])
-  
+  const fetchUserID = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/register"); // Matching ID with the above API and getting more deatails of user
+      setID(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
+  };
+
+  useEffect(() => {
+    fetchUserProfile();
+    fetchUserID();
+  }, []);
+
   return (
     <>
       <div
@@ -30,16 +48,24 @@ const loginUser = async (email, password) => {
           paddingBottom: "200px",
         }}
       >
+          <h1 className="positionP">Profile</h1>
         <div className="profile-main">
-        <h1>Profile</h1>
-        <div>
-          <img src="" className="image-fluid profile-image" alt="ImageHere" />
-        </div>
-        <div className="profile-content">
-          <p>Username : </p>
-          <p>Email : </p>
-          <p>Joined At : </p>
-        </div>
+          <div>
+            <img src="images/user2.jpg" className="image-fluid profile-image" alt="ImageHere" />
+          </div>
+          <div className="profile-content">
+            <p>Email : {userData.email} </p>
+            {ID.length > 0 &&
+              ID.map((val) => {
+                return val._id === userData.id ?
+                <>
+                  <p key={val._id}>Username : {val.username}</p>
+                  <p key={val._id}>Joined At: {new Date(val.createdAt).toLocaleDateString()}</p>
+                  <p key={val._id}>UserID : {val._id.substring(0, 5)}</p>
+                </>
+                : <></>;
+              })}
+          </div>
         </div>
       </div>
     </>

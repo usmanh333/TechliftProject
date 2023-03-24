@@ -84,6 +84,7 @@ const Register = () => {
                             });
                             console.log(res.data.status)
                             console.log(res.data.error)
+                            console.log(res.data.token)
                             if (res.data.error === "Already registered") {  // Here we are comparing ours error from backend if its matches then the return part executed else navigate
                               return setErrors({ email: "This Email is Already Been Registered" });
                             } else {
