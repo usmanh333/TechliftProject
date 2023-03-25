@@ -9,15 +9,15 @@ router.use(bodyParser.urlencoded(
 router.use(bodyParser.json());
 router.use(express.json())
 const post_a_service = require('../models/PostService') // Schema
-const jwt = require('jsonwebtoken')
-
+const path = require('path');
+const {getAllPosts, getPostByID, deletePost} = require('../Controllers/postServicesController')
 
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'Routes/uploads/');
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
     const imageName = `${uuidv4()}.${file.originalname.split('.').pop()}`;
@@ -32,12 +32,21 @@ const upload = multer({
 });
 
 
-// getting data by filename
+// getting image by filename
 router.get('/cardsdata/uploads/:imageName', (req, res) => {
   const { imageName } = req.params;
   const imagePath = `uploads/${imageName}`;
-  res.sendFile(imagePath, { root: __dirname });
+  // res.sendFile(imagePath, { root: __dirname });
+  const absolutePath = path.join(__dirname, '../', imagePath);
+      res.sendFile(absolutePath);
 });
+
+// router.get('/register/:imageName', (req, res) => {
+  //     const { imageName } = req.params;
+  //     const imagePath = `uploads/${imageName}`;
+  //     const absolutePath = path.join(__dirname, '../', imagePath);
+  //     res.sendFile(absolutePath);
+  //   });
 
 // Getting token to verify the route
 // const authMiddileware = async (req, res, next) => { 
@@ -65,14 +74,7 @@ router.get('/cardsdata/uploads/:imageName', (req, res) => {
 
 
 // getting all cards posts
-router.get('/cardsdata', async(req, res) =>{
-    try {
-      const allCards = await post_a_service.find()
-    res.status(200).json(allCards)
-    } catch (error) {
-      res.status(500).json({ msg: "INTERNAL SERVER ERROR" , error: error });
-    }
-})
+router.get('/cardsdata', getAllPosts)
 
 
 // posting cards 
@@ -108,14 +110,7 @@ router.post('/cards', upload.single('image'), async (req, res) => {
 
 
 // getting cards post by a ID
-router.get('/cardsdata/:id', async (req, res)=>{
-    try {
-      const postById = await post_a_service.findById(req.params.id)
-    res.status(200).json(postById)
-    } catch (error) {
-      res.status(500).json({ msg: "INTERNAL SERVER ERROR" , error: error });
-    }
-})
+router.get('/cardsdata/:id', getPostByID)
 
 
 //  Updating cards data
@@ -150,14 +145,6 @@ router.put('/cardsdata/:id', upload.single('image'), async (req, res) => {
 
 
 // Delete card post by ID
-router.delete('/cardsdata/:id', async (req, res) => {
-  try {
-    const removeCard = await post_a_service.deleteOne({ _id: req.params.id });
-    res.json(removeCard);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+router.delete('/cardsdata/:id', deletePost);
 
 module.exports = router;

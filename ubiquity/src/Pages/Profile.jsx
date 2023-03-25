@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../CSS Files/profile.css";
 import axios from "axios";
 import Cookies from "js-cookie"; // seting token in cookie
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -51,7 +55,7 @@ const Profile = () => {
           <h1 className="positionP">Profile</h1>
         <div className="profile-main">
           <div>
-            <img src="images/user2.jpg" className="image-fluid profile-image" alt="ImageHere" />
+            <img src="../images/user2.jpg" className="image-fluid profile-image" alt="ImageHere" />
           </div>
           <div className="profile-content">
             <p>Email : {userData.email} </p>
@@ -62,11 +66,14 @@ const Profile = () => {
                   <p key={val._id}>Username : {val.username}</p>
                   <p key={val._id}>Joined At: {new Date(val.createdAt).toLocaleDateString()}</p>
                   <p key={val._id}>UserID : {val._id.substring(0, 5)}</p>
+                  <p key={val._id}>Number : {val.phoneNumber}</p>
+                  <button className="btn" style={{backgroundColor: "orange"}}><Link to={`/updateProfile/${val._id}`}>Update Profile</Link></button>
                 </>
                 : <></>;
               })}
           </div>
         </div>
+        <ToastContainer/>
       </div>
     </>
   );

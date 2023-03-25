@@ -8,7 +8,7 @@ require('dotenv').config(); //To Create Environment variable
 const PORT = process.env.PORT || 5000
 
 app.use(ServiceRoutes) // making services routes
-app.use(RegisterRoute) // register routes
+app.use(RegisterRoute) // register routes 
 
 
 try {

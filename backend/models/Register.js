@@ -3,6 +3,7 @@ const registerShema = new mongoose.Schema({
     username : {
         type : String,
         require:true,
+        lowercase: true,
     },
     email: {
         type : String,

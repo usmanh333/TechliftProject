@@ -188,7 +188,7 @@ const UpdateServiceForm = () => {
       <form
       className="container w-50 mt-5 fixingBottom"
         onSubmit={SubmitHandler}
-        encType="multipart/form-data"
+        encType="application/json"
         method="POST"
       >
         {/* <!-- Name input --> */}
