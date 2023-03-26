@@ -14,6 +14,7 @@ const {getAllPosts, getPostByID, deletePost} = require('../Controllers/postServi
 
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const { authMiddileware } = require('../middleware/auth');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -78,10 +79,12 @@ router.get('/cardsdata', getAllPosts)
 
 
 // posting cards 
-router.post('/cards', upload.single('image'), async (req, res) => {
+router.post('/cards',authMiddileware, upload.single('image'), async (req, res) => { // protected route
   try {
     const { name, desc, price, number, selectDistrict, selectArea, checkbox, selectCategory } = req.body;
     // checking file
+    console.log("Check--",req.user, "Check")
+    console.log(req.file, "fileCheck")
     if (!req.file) {
       res.status(400).json({ msg: "BAD REQUEST" });
       return; 
@@ -97,6 +100,7 @@ router.post('/cards', upload.single('image'), async (req, res) => {
       selectCategory :selectCategory,
       checkbox : checkbox,
       date: new Date().toISOString(),
+      userID : req.user.id
     });
     console.log(cards)
     await cards.save();
@@ -110,11 +114,11 @@ router.post('/cards', upload.single('image'), async (req, res) => {
 
 
 // getting cards post by a ID
-router.get('/cardsdata/:id', getPostByID)
+router.get('/cardsdata/:id', getPostByID) 
 
 
 //  Updating cards data
-router.put('/cardsdata/:id', upload.single('image'), async (req, res) => {
+router.put('/cardsdata/:id',authMiddileware, upload.single('image'), async (req, res) => { // protected route
   try {
     // Get the card by ID
     const card = await post_a_service.findById(req.params.id);
@@ -129,7 +133,8 @@ router.put('/cardsdata/:id', upload.single('image'), async (req, res) => {
     card.selectArea = req.body.selectArea;
     card.selectCategory = req.body.selectCategory;
     card.checkbox = req.body.checkbox;
-    card.date= new Date().toISOString()
+    card.date= new Date().toISOString(),
+    card.userID = req.user.id
 
     // Save the updated card
     await card.save();
@@ -145,6 +150,6 @@ router.put('/cardsdata/:id', upload.single('image'), async (req, res) => {
 
 
 // Delete card post by ID
-router.delete('/cardsdata/:id', deletePost);
+router.delete('/cardsdata/:id', authMiddileware, deletePost); // protected route
 
 module.exports = router;

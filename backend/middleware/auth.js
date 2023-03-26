@@ -16,7 +16,7 @@ exports.authMiddileware = async(req, res, next)=>{
     }
     try {
         let decoded = jwt.verify(token, process.env.JWT_SECRET)
-        console.log("decoded" + decoded)
+        console.log("decodedToken" , decoded)
         req.user = await Register.findById(decoded.id)
         console.log(req.user)
         next()

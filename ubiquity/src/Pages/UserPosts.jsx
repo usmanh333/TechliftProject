@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from "js-cookie"; // seting token in cookie
 import axios from "axios";
 
-const ViewAllServices = () => {
+const UserPosts = () => {
   const [showInput, setShowInput] = useState([]);
   const userClick = async () => {
     const token = Cookies.get("token");
@@ -76,14 +76,13 @@ const ViewAllServices = () => {
             }}
           >
             <div className="headingFifth">
-              Here You can see all services which are uploaded by our Service
-              Providers
+              Here You can see all services You have Posted also You can update and delete Services from here
             </div>
             <hr />
-              <h3>The Total Services Posted Until Now({showInput.length})</h3>
+              <h3>The Total Services You have Posted Until Now({showInput.filter(val => val.userID === userData.id).length})</h3>
             <MDBRow className="mt-4">
               {showInput.slice().reverse().map((val, ind) => {
-                return (
+                return ( val.userID ===userData.id ?
                   <MDBCol md="12" lg="3" className="mb-4 mt-2" key={ind}>
                     <div className="">
                       <MDBCard
@@ -169,7 +168,7 @@ const ViewAllServices = () => {
                       </MDBCard>
                     </div>
                   </MDBCol>
-                );
+                :<></>);
               })}
             </MDBRow>
           </MDBContainer>
@@ -180,4 +179,4 @@ const ViewAllServices = () => {
   );
 };
 
-export default ViewAllServices;
+export default UserPosts;

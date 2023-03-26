@@ -1,8 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Cookies from 'js-cookie';
+import axios from "axios";
 
 const NavBar = ({loggedIn, setLoggedIn}) => {
+
+  // Getting user details and showing on Navigation
+  const [userData, setUserData] = useState({});
+  const [ID, setID] = useState([]);
+ 
+  const fetchUserProfile = async () => {
+    const token = Cookies.get("token"); //  get the token from cookies
+    const header = {
+      headers: { Authorization: `Bearer ${token}` }, // matching headers with frontend and token also
+    };
+    try {
+      const response = await axios.get("http://localhost:4000/profile", header); // getting login user details 
+      console.log(response);
+      setUserData(response.data);
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
+  };
+
+  const fetchUserID = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/register"); // Matching ID with the above API and getting more deatails of user
+      setID(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+      // handle error
+    }
+  };
+
+  // ENDS
 
   useEffect(() => { 
     // Check if user is logged in
@@ -12,6 +45,8 @@ const NavBar = ({loggedIn, setLoggedIn}) => {
     } else {
       setLoggedIn(false);
     }
+    fetchUserProfile();
+    fetchUserID();
   }, []);
   const handleLogout = () => {
     // Clear local storage/cookies and set loggedIn to false
@@ -72,7 +107,7 @@ const NavBar = ({loggedIn, setLoggedIn}) => {
                     Services By Categories
                   </NavLink>
                 </li>
-                <li></li>
+                
                 <li>
                   <NavLink
                     to="/servicesAll"
@@ -115,22 +150,52 @@ const NavBar = ({loggedIn, setLoggedIn}) => {
             )}
             {loggedIn && (
               <>
+              <li className="nav-item dropdown">
+              <Link
+                to=""
+                className="nav-link dropdown-toggle text-light"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {
+                  ID.length > 0 &&
+                  ID.map((val) => {
+                    return val._id === userData.id ?
+                    <>
+                     Welcome, {val.username.toUpperCase().slice(0,10)}
+                    </>
+                    : <></>;
+                  })
+                }
+              </Link>
+              <ul className="dropdown-menu bg-dark">
                 <li className="nav-item">
                   <NavLink
                     to="/profile"
-                    className="nav-link text-light"
+                    className="dropdown-item text-light bg-dark"
                   >
                     Profile
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                <li>
+                  <NavLink
+                    to="/userPosts"
+                    className="dropdown-item text-light bg-dark"
+                  >
+                    My Posts
+                  </NavLink>
+                </li>
+                <li>
                   <Link
                     to="/"
                     onClick={handleLogout}
-                    className="nav-link text-light"
+                    className="dropdown-item text-light bg-dark"
                   >
                     Logout
                   </Link>
+                </li>
+                </ul>
                 </li>
               </>
             )}

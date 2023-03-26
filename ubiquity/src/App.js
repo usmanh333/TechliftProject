@@ -17,6 +17,7 @@ import ProtectedRoute from "./Pages/ProtectedRoute";
 import { useState } from "react";
 import Profile from "./Pages/Profile";
 import UpdateUserProfile from './Pages/UpdateUserProfile'
+import UserPosts from "./Pages/UserPosts";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); // Global state passing as prop in pages and components
@@ -41,6 +42,7 @@ function App() {
             element={<Profile />}
           />
           <Route path="/updateProfile/:id" element={<UpdateUserProfile />}/>
+          <Route path="/userPosts" element={<UserPosts />}/>
         </Route>
         {!loggedIn && (
           <>

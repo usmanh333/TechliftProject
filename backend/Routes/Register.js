@@ -21,10 +21,10 @@ router.get('/profile',authMiddileware, UserProfile); // protected route
 
 // Updating profile
 
-router.put('/register/:id', updateUserProfile)
+router.put('/register/:id',authMiddileware, updateUserProfile) // protected route
 
 // getting user by ID
-router.get('/register/:id', getUserByID);
+router.get('/register/:id', getUserByID); // protected route
 
 module.exports = router
 

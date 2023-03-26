@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {ObjectId} = mongoose.Schema
 
 const userShema = new mongoose.Schema({
     name : {
@@ -40,9 +41,11 @@ const userShema = new mongoose.Schema({
         type : Boolean,
         default : false,
     },
-    // userID : {
-    //     type: mongoose.Schema.Types.ObjectId, ref: 'login'
-    // }
+    userID : {
+        type: ObjectId,
+        ref: 'login',
+        required: true
+    }
 },{timestamps: true})
 
 

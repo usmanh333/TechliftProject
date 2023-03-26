@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
+import Cookies from "js-cookie"; // seting token in cookie
 
 const UpdateServiceForm = () => {
   let navigate = useNavigate();
@@ -136,7 +137,10 @@ const UpdateServiceForm = () => {
   //   Getting Data from BE
   const getUserDetail = async () => {
     try {
-      let res = await fetch(`http://localhost:4000/cardsdata/${id}`);
+      const token = Cookies.get("token");
+      let res = await fetch(`http://localhost:4000/cardsdata/${id}`,{
+        headers: {"Authorization": `Bearer ${token}` }, // Second Header verify the token
+      });
       console.log(res);
       let card = await res.json();
       console.log(card);
@@ -156,6 +160,7 @@ const UpdateServiceForm = () => {
   const SubmitHandler = async (e) => {
     e.preventDefault();
     try {
+      const token = Cookies.get("token");
       // upload image and post the data to the server
       const formData = new FormData();
       formData.append("image", getImage);
@@ -169,7 +174,9 @@ const UpdateServiceForm = () => {
 
       const response = await Axios.put(
         `http://localhost:4000/cardsdata/${id}`,
-        formData
+        formData,{
+          headers: { "Authorization": `Bearer ${token}` }, // Second Header verify the token
+        }
       );
 
       console.log(name);

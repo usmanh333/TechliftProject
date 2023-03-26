@@ -44,7 +44,7 @@ const createUser = async(req,res)=>{
 // Login users
 const loginUser =  async (req, res) => {
     try {
-      const { email, password, username } = req.body;
+      const { email, password } = req.body;
       const user = await registerSchema.findOne({ email });
       if (!user) {
         return res.status(401).json({ message: "Invalid email or password" });
@@ -89,13 +89,13 @@ const updateUserProfile = async(req, res)=>{
   try {
       let {username, phoneNumber, password, retypePassword} = req.body;
       let updateUser = await registerSchema.findById(req.params.id)
-      let hashedPassword = await bycrypt.hash(password, 10)
-      let hashedRetypePassword = await bycrypt.hash(retypePassword, 10)
+      // let hashedPassword = await bycrypt.hash(password, 10)
+      // let hashedRetypePassword = await bycrypt.hash(retypePassword, 10)
       updateUser.username = username
       // updateUser.email = email
       updateUser.phoneNumber = phoneNumber
-      updateUser.password = hashedPassword
-      updateUser.retypePassword = hashedRetypePassword
+      updateUser.password = password
+      updateUser.retypePassword = retypePassword
 
       await updateUser.save()
       res.json(updateUser)

@@ -5,6 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie"; // seting token in cookie
 
 const PostAServiceForm = () => {
   // Validation function Starts
@@ -103,8 +104,9 @@ const PostAServiceForm = () => {
         initialValues={initialValues}
         onSubmit={async (values) => {
           try {
+            const token = Cookies.get("token");
             let res = await Axios.post("http://localhost:4000/cards", values, {
-              headers: { "Content-Type": "multipart/form-data" },
+              headers: { "Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}` }, // Second Header verify the token
             });
             toast.success(`${res.data.msg}`, {
               position: toast.POSITION.TOP_CENTER

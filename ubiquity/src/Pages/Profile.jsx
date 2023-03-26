@@ -10,11 +10,11 @@ import 'react-toastify/dist/ReactToastify.css';
 const Profile = () => {
   const [userData, setUserData] = useState({});
   const [ID, setID] = useState([]);
-
+ 
   const fetchUserProfile = async () => {
     const token = Cookies.get("token"); //  get the token from cookies
     const header = {
-      headers: { Authorization: `Bearer ${token}` }, // matching headers with frontend 
+      headers: { Authorization: `Bearer ${token}` }, // matching headers with frontend and token also
     };
     try {
       const response = await axios.get("http://localhost:4000/profile", header); // getting login user details 
@@ -58,15 +58,15 @@ const Profile = () => {
             <img src="../images/user2.jpg" className="image-fluid profile-image" alt="ImageHere" />
           </div>
           <div className="profile-content">
-            <p>Email : {userData.email} </p>
+            <p><strong>Email :</strong> {userData.email} </p>
             {ID.length > 0 &&
               ID.map((val) => {
                 return val._id === userData.id ?
                 <>
-                  <p key={val._id}>Username : {val.username}</p>
-                  <p key={val._id}>Joined At: {new Date(val.createdAt).toLocaleDateString()}</p>
-                  <p key={val._id}>UserID : {val._id.substring(0, 5)}</p>
-                  <p key={val._id}>Number : {val.phoneNumber}</p>
+                  <p key={val._id}><strong>Username :</strong> {val.username}</p>
+                  <p key={val._id}><strong>Joined At :</strong> {new Date(val.createdAt).toLocaleDateString()}</p>
+                  <p key={val._id}><strong>UserID :</strong> {val._id.substring(5, 10)}</p>
+                  <p key={val._id}><strong>Number :</strong> {String(val.phoneNumber).startsWith('9') ? '+' + val.phoneNumber : String(val.phoneNumber).startsWith('3') ? '+92-' + val.phoneNumber : val.phoneNumber}</p>
                   <button className="btn" style={{backgroundColor: "orange"}}><Link to={`/updateProfile/${val._id}`}>Update Profile</Link></button>
                 </>
                 : <></>;
