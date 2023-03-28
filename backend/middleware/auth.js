@@ -7,7 +7,7 @@ const Register = require('../models/Register')
 
 // adding token
 exports.authMiddileware = async(req, res, next)=>{
-    // const {authHeader} = req.headers.authorization;
+    // const {authHeader} = req.headers.authorization; 
     try {
       const token = req.headers.authorization?.split(' ')[1] || req.cookies.authToken;
     console.log("token: " + token)

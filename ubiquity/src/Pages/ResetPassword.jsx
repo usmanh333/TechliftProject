@@ -7,16 +7,14 @@ import * as yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
 import Cookies from 'js-cookie';
 
-const LoginPage = ({ setLoggedIn }) => {
+const ResetPassword = () => {
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(null); // Getting the errors if username or password is incorrect
-  let navigate = useNavigate();
   const initialValue = {
     email: "",
-    password: "",
   };
   const loginValidation = yup.object({
     email: yup.string().required("The email is required"),
-    password: yup.string().required("The password is required"),
   });
 
   return (
@@ -54,30 +52,23 @@ const LoginPage = ({ setLoggedIn }) => {
                         onSubmit={async (values, { setSubmitting }) => {
                           try {
                             let res = await Axios.post(
-                              "http://localhost:4000/login",
+                              "http://localhost:4000/sendpasswordlink",
                               values
                             );
-                            console.log(res);
-                            console.log(res.data.msg);
-                            // console.log(JSON.stringify(res.data.token))
-                            {
-                              res.data
-                                ? toast(`${res.data.msg}`, {
-                                    position: toast.POSITION.TOP_RIGHT,
-                                  })
-                                : toast(`${error}`, {
-                                    position: toast.POSITION.TOP_RIGHT,
-                                  }); 
-                            }
+                            console.log(res.data.token)
                             let token = res.data.token
                             console.log(token);
                             // localStorage.setItem('secretKey',token,JSON.stringify(values)) //setting key and user in local storage
-                            Cookies.set('token', token, { expires: 7 }); //setting key and user in local storage/cookies
-                            navigate("/servicesAll");
-                            setLoggedIn(true); // update the loggedIn state variable
+                            Cookies.set('verifytoken', token, { expires: 1 }); //verify token
+                            if(res.status===201){
+                                setMessage(true) // if get the response then the message displayed 
+                            }else{
+                                toast.error("Invalid User")
+                            }
+                            
                           } catch (error) {
                             console.error(error);
-                            setError("Invalid email address or password"); // setting the state and displaying the error
+                            setError("Invalid email address"); // setting the state and displaying the error
                           }
                           console.log(values);
                           setSubmitting(false); // its a function coming from actions which is destructure above it can be actions.setSubmitting
@@ -85,14 +76,17 @@ const LoginPage = ({ setLoggedIn }) => {
                       >
                         {({ isSubmitting }) => (
                           <Form>
-                            <p>Please login to your account</p>
+                            <p>Please Enter Your Email Address </p>
+                            {
+                                message ? <span className="mb-2" style={{color: "green", fontWeight:"600"}}>Password Reset Link send to your Email address, Please Check your Email Inbox to Verify, Thanks.</span>: <></>
+                            }<br/>
 
                             <div class="form-outline mb-4">
                               <Field
                                 type="text"
                                 id="form2Example11"
                                 class="form-control"
-                                placeholder="Phone number or email address"
+                                placeholder="Enter Email"
                                 name="email"
                               />
                               <span
@@ -101,52 +95,32 @@ const LoginPage = ({ setLoggedIn }) => {
                                 <ErrorMessage name="email" />
                               </span>
                             </div>
-
-                            <div class="form-outline mb-4">
-                              <Field
-                                type="password"
-                                id="form2Example22"
-                                class="form-control"
-                                placeholder="Password"
-                                name="password"
-                              />
-                              <span
-                                style={{ color: "red", fontStyle: "italic" }}
-                              >
-                                <ErrorMessage name="password" />
-                              </span>
-                            </div>
                             <span style={{ color: "red", fontStyle: "italic" }}>
-                              {error && <div>{error}</div>}{" "}
+                              {error && <div>{error}</div>}
                               {/* Handling errors */}
                             </span>
-                            <br />
+                        
                             <div class="text-center pt-1 mb-5 pb-1">
                               <button
                                 class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 pe-4 ps-4 pt-2 pb-2"
                                 type="submit"
                                 disabled={isSubmitting}
                               >
-                                Log in
+                                Send
                               </button>
-
-                              <br />
-                              <Link class="text-muted" to='/reset-password'>
-                                Forgot password?
-                              </Link>
                             </div>
                           </Form>
                         )}
                       </Formik>
 
                       <div class="d-flex align-items-center justify-content-center pb-4">
-                        <p class="mb-0 me-2">Don't have an account?</p>
+                        <p class="mb-0 me-2">Already know the password?</p>
                         <Link
-                          to={"/register"}
+                          to={"/login"}
                           type="button"
                           class="btn btn-outline-danger"
                         >
-                          Create new Account
+                          Login now
                         </Link>
                       </div>
                     </div>
@@ -171,4 +145,4 @@ const LoginPage = ({ setLoggedIn }) => {
   );
 };
 
-export default LoginPage;
+export default ResetPassword;

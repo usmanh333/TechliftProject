@@ -18,6 +18,8 @@ import { useState } from "react";
 import Profile from "./Pages/Profile";
 import UpdateUserProfile from './Pages/UpdateUserProfile'
 import UserPosts from "./Pages/UserPosts";
+import ResetPassword from "./Pages/ResetPassword";
+import ConfirmPassword from "./Pages/ConfirmPassword";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); // Global state passing as prop in pages and components
@@ -52,6 +54,8 @@ function App() {
             />
             {/* passing state to login page as prop to render the condition */}
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/reset-password/:id/:token" element={<ConfirmPassword />} />
           </>
         )}
         <Route path="*" element={<PageNotFound />} />

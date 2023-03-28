@@ -5,6 +5,7 @@ let registerSchema = require('../models/Register')
 let jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser'); // using cookie parser to parse the token
 router.use(cookieParser())
+const nodemailer = require('nodemailer')
 
 // getting all users 
 const getAllUsers =  async(req,res)=>{
@@ -115,5 +116,105 @@ const getUserByID =  async(req,res)=>{
   }
 }
 
+// Email configuration function
 
-module.exports = {getAllUsers, createUser,UserProfile, loginUser, updateUserProfile, getUserByID}
+const transporter = nodemailer.createTransport({ //defining the transport with nodemailer
+  service: "gmail",
+  auth: {
+    user: 'hafizahmad022@gmail.com',
+    pass: "", // need to add one time pass from gmail
+  }
+})
+
+// sending email to reset the password
+
+const sendEmail = async (req, res)=>{
+  console.log(req.body)
+  const {email} = req.body
+  try {
+    const oldUser = await registerSchema.findOne({email: email}) // if the mail is exist in the DB
+    console.log("user-find" , oldUser)
+    const token = jwt.sign({_id:oldUser._id}, process.env.JWT_SECRET, { //adding token here 
+      expiresIn: "120s"
+    })
+    console.log("token" , token)
+    res.cookie('verifytoken', token, { httpOnly: true }); // saving the token in the cookie
+    if(oldUser){
+      const mailOptions= {
+        from: process.env.NODE_MAILER_EMAIL,
+        to: email,
+        subject: "Sending Email for Password Reset",
+        text: `This Link will Expired after 2 Minutes --> http://localhost:3000/reset-password/${oldUser._id}/${token}` // this is the get API which is created in Backend
+      }
+      transporter.sendMail(mailOptions,(error, info)=>{
+        if(error){
+          console.log("error sending email", error)
+          res.status(401).json({status: 401, message:"Email is not valid"})
+        }else{
+          console.log("Email has been Sent Successfully", info)
+          res.status(201).json({status: 201,token, message:"Email sent successfully"})
+        }
+      })
+    }
+     
+  } catch (error) {
+    res.status(500).json({msg: "Internal Server Error", error})
+  }
+}
+
+// Verifying user for forgot password
+const verifyingUser = async(req,res)=>{
+  const {id, token}= req.params // getting token from api
+  console.log(id, token)
+  try {
+    const CookkieToken = req.headers.authorization?.split(' ')[1] || req.cookies.authToken;
+  console.log("verifytoken: " + CookkieToken)
+  try {
+      let validUser = await registerSchema.findOne({_id:id}) 
+      console.log(validUser)
+      let decoded = jwt.verify(token, process.env.JWT_SECRET) // decoding the token
+      console.log("DDdecodedToken" , decoded)
+      if(validUser && decoded._id){ // if the user is valid and the token is valid then return
+        return res.status(201).json({status: 201, validUser});
+      }else{
+        return res.status(401).json({error: "invalid Token"});
+      }
+  } catch (error) {
+      res.status(500).json({ message: "Server error" });
+  }
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+} 
+
+// Update Password
+const updatePassword = async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  console.log(password);
+  try {
+    let validUser = await registerSchema.findOne({ _id: id });
+    let decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(validUser, "updated password");
+    console.log(decoded, "updated password");
+
+    if (validUser && decoded._id) {
+      const newPassword = await bycrypt.hash(password, 10); // encrypted the password
+      let updatedPass = await registerSchema.findByIdAndUpdate( // Updating the new password
+        id,
+        { password: newPassword },
+        { new: true } // to return the updated document
+      );
+      console.log(updatedPass, "updated password");
+      return res.status(201).json({ status: 201, updatedPass });
+    } else {
+      return res.status(401).json({ error: "User not exist" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+module.exports = {getAllUsers, createUser,UserProfile, loginUser, updateUserProfile, getUserByID, sendEmail, verifyingUser, updatePassword}

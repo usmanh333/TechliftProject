@@ -4,7 +4,7 @@ const cors = require('cors')
 router.use(express.json())
 router.use(cors())
 const { authMiddileware } = require('../middleware/auth') // getting auth middleware like user profile if user is logged in
-const {getAllUsers, loginUser, createUser, UserProfile, updateUserProfile, getUserByID} = require('../Controllers/loginRegisterUsersController')
+const {getAllUsers, loginUser, createUser, UserProfile, updateUserProfile, getUserByID, sendEmail, verifyingUser, updatePassword} = require('../Controllers/loginRegisterUsersController')
 
 // getting all users 
 router.get('/register', getAllUsers)  
@@ -26,7 +26,16 @@ router.put('/register/:id',authMiddileware, updateUserProfile) // protected rout
 // getting user by ID
 router.get('/register/:id', getUserByID); // protected route
 
-module.exports = router
+// sending email to reset the password
+router.post('/sendpasswordlink', sendEmail); 
+
+// Verifying user for forgot password
+router.get('/resetpassword/:id/:token', verifyingUser); 
+
+// Update user Password
+router.post('/resetpassword/:id/:token', updatePassword); 
+
+module.exports = router 
 
 
 
